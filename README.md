@@ -1,17 +1,27 @@
 # My Next.js Website
 
-A modern web app built with **Next.js**, **React**, and **Tailwind CSS**. Deployed on **Vercel**.
+A modern web app built with **Next.js**, **React**, **Tailwind CSS**, and **shadcn/ui**. Uses **Supabase** for the database and authentication. Deployed on **Vercel**.
 
-## 🚀 Features (Planning on this but might change as i go along)
-- Server-side rendering (SSR) & static generation (SSG)
-- Styled with Tailwind CSS
+## 🚀 Features
+- Full-stack Next.js application
+- Styled with Tailwind CSS and shadcn/ui components
+- Supabase for database and authentication
 - API routes for backend functionality
-- Prisma ORM for database management
-- Authentication with NextAuth.js
+- Server-side rendering (SSR) & static generation (SSG)
+- Deployed on Vercel
 
-## 🛠 Tech Stack (Planning on this but might change as i go along)
+## 🛠 Tech Stack
 - **Frontend:** Next.js, React, Tailwind CSS, shadcn/ui
-- **Backend:** Next.js API Routes (or Express.js)
-- **Database:** PlanetScale (MySQL) / Neon.tech (PostgreSQL)
-- **Auth & Services:** NextAuth.js, Upstash, Resend
+- **Backend:** Next.js API Routes (or Express.js if needed)
+- **Database:** Supabase (PostgreSQL) with Prisma ORM
+- **Auth:** Supabase Auth or NextAuth.js
+- **State Management:** React Query (for server state), Zustand (if needed)
 - **Deployment:** Vercel
+- **Icons:** Lucide React
+
+## 🔧 Installation
+Clone the repository and install dependencies:
+```sh
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+npm install
