@@ -1,17 +1,24 @@
-# My Next.js Website
+# Personal Website
 
-A modern web app built with **Next.js**, **React**, and **Tailwind CSS**. Deployed on **Vercel**.
+A modern web app built with **Vite**, **React**, and **Tailwind CSS**.
 
-## 🚀 Features (Planning on this but might change as i go along)
-- Server-side rendering (SSR) & static generation (SSG)
+## 🚀 Features
+
+- Fast development with Vite
 - Styled with Tailwind CSS
-- API routes for backend functionality
-- Prisma ORM for database management
-- Authentication with NextAuth.js
+- React Router for navigation
+- Framer Motion for animations
+- Deployed on Vercel
 
-## 🛠 Tech Stack (Planning on this but might change as i go along)
-- **Frontend:** Next.js, React, Tailwind CSS, shadcn/ui
-- **Backend:** Next.js API Routes (or Express.js)
-- **Database:** PlanetScale (MySQL) / Neon.tech (PostgreSQL)
-- **Auth & Services:** NextAuth.js, Upstash, Resend
+## 🛠 Tech Stack
+
+- **Frontend:** React, Tailwind CSS
+- **Routing:** React Router
+- **Animations:** Framer Motion
 - **Deployment:** Vercel
+
+## 📦 Scripts
+
+- `npm run dev`: Start the development server
+- `npm run build`: Build the project for production
+- `npm run preview`: Preview the production build
