@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #243447;
+  --secondary-color: #1a1f2b;
+  --background-dark: #111827;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+}
+
+@layer base {
+  body {
+    @apply bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white min-h-screen;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply min-h-screen relative;
+  }
+
+  .main-container {
+    @apply max-w-[2000px] w-full mx-auto px-8 sm:px-12;
+  }
+
+  .section-container {
+    @apply py-16 md:py-24;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .heading-primary {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white;
+  }
+
+  .heading-secondary {
+    @apply text-3xl font-bold text-center mb-12 text-gray-100;
+  }
+
+  .card {
+    @apply bg-white/5 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-white/10;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400;
+  }
+
+  .button-primary {
+    @apply px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-300;
+  }
+
+  .button-secondary {
+    @apply px-6 py-3 rounded-lg border border-white/20 hover:bg-white/10 transition-colors duration-300;
+  }
+}

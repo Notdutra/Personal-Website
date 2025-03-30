@@ -5,10 +5,11 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
+import "./styles/globals.css";
 
 function App() {
   return (
-    <>
+    <div className="min-h-screen">
       <Helmet>
         <title>Arthur Schossler Dutra - Software Developer</title>
         <meta
@@ -25,7 +26,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

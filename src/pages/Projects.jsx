@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiExternalLink, FiCode } from "react-icons/fi";
+import RippleEffect from "../components/RippleEffect";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -46,29 +47,30 @@ const Projects = () => {
   );
 
   return (
-    <div className="min-h-screen pt-16">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-dark dark:to-gray-900">
-        <div className="container mx-auto px-4">
+    <div className="min-h-screen py-20 relative overflow-hidden">
+      <RippleEffect />
+      <div className="container mx-auto px-4">
+        {/* Hero Section */}
+        <section className="py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">My Projects</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              My Projects
+            </h1>
+            <p className="text-xl text-gray-300">
               Explore my portfolio of web applications and software projects.
               Each project represents a unique challenge and learning
               experience.
             </p>
           </motion.div>
-        </div>
-      </section>
+        </section>
 
-      {/* Projects Section */}
-      <section className="py-20 bg-white dark:bg-dark">
-        <div className="container mx-auto px-4">
+        {/* Projects Section */}
+        <section className="py-20">
           {/* Filter Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -154,8 +156,8 @@ const Projects = () => {
               ))}
             </AnimatePresence>
           </motion.div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };

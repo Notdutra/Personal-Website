@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply bg-light text-dark dark:bg-dark dark:text-light;
+    @apply bg-light text-dark dark:bg-dark dark:text-light min-h-screen bg-gradient-to-b from-[#1e3a5f] via-[#1a2634] to-[#0f172a];
   }
 }
 

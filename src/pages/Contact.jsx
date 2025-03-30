@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiMapPin, FiGithub, FiLinkedin } from "react-icons/fi";
+import RippleEffect from "../components/RippleEffect";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -24,9 +25,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen py-20 relative overflow-hidden">
+      <RippleEffect />
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-dark dark:to-gray-900">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -34,10 +36,10 @@ const Contact = () => {
             transition={{ duration: 0.5 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               Get in Touch
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-xl text-gray-300">
               Have a question or want to work together? Feel free to reach out!
             </p>
           </motion.div>
@@ -45,7 +47,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 bg-white dark:bg-dark">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}

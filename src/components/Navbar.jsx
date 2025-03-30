@@ -5,12 +5,52 @@ import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
 
   // Reset scroll position when route changes
   useEffect(() => {
     window.scrollTo(0, 0);
+    setIsVisible(true);
+    setIsOpen(false); // Close mobile menu on route change
   }, [location]);
+
+  // Handle scroll events
+  useEffect(() => {
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+
+      // Get the photo frame element position
+      const photoFrame = document.querySelector(".rounded-full");
+      if (!photoFrame) return;
+
+      // Get the position of the top of the photo frame, minus a small offset
+      const framePosition =
+        photoFrame.getBoundingClientRect().top + window.scrollY + 58;
+
+      if (currentScrollY > framePosition - 100) {
+        // Start hiding slightly before reaching the frame
+        // Near or past the frame
+        if (currentScrollY > lastScrollY) {
+          // Scrolling down
+          setIsVisible(false);
+        }
+      } else {
+        // Above the frame
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", controlNavbar);
+    window.addEventListener("resize", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+      window.removeEventListener("resize", controlNavbar);
+    };
+  }, [lastScrollY]);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -20,21 +60,29 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed w-full z-50">
-      <div className="container mx-auto px-6 py-6">
+    <motion.nav
+      initial={{ y: 0 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed w-full z-50 backdrop-blur-sm"
+    >
+      <div className="max-w-[2000px] mx-auto px-8 sm:px-12 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-teal-400">
+          <Link
+            to="/"
+            className="text-lg sm:text-xl md:text-2xl font-bold text-teal-400"
+          >
             NotDutra
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-12">
+          <div className="hidden md:flex items-center space-x-8 lg:space-x-12">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-lg font-medium transition-all duration-200 ${
+                className={`text-base lg:text-lg font-medium transition-all duration-200 ${
                   location.pathname === item.path
                     ? "text-teal-400"
                     : "text-gray-200 hover:text-teal-400"
@@ -47,8 +95,9 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-200 hover:text-teal-400"
+            className="md:hidden text-gray-200 hover:text-teal-400 p-2"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
           >
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
@@ -63,12 +112,12 @@ const Navbar = () => {
               exit={{ opacity: 0, y: -20 }}
               className="md:hidden mt-4"
             >
-              <div className="rounded-lg bg-[#1a2634]/80 backdrop-blur-sm p-4 space-y-2">
+              <div className="rounded-lg bg-[#1a2634]/80 backdrop-blur-sm p-4 space-y-2 border border-white/10">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`block px-4 py-2 text-lg font-medium rounded transition-all duration-200 ${
+                    className={`block px-4 py-2 text-base font-medium rounded transition-all duration-200 ${
                       location.pathname === item.path
                         ? "text-teal-400 bg-white/5"
                         : "text-gray-200 hover:text-teal-400 hover:bg-white/5"
@@ -83,7 +132,7 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

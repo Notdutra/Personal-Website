@@ -17,6 +17,7 @@ import {
   FiAward,
   FiStar,
 } from "react-icons/fi";
+import RippleEffect from "../components/RippleEffect";
 
 const About = () => {
   const skills = [
@@ -24,8 +25,8 @@ const About = () => {
       category: "Technical Skills",
       icon: <FiCode />,
       items: [
-        "Java/Spring Boot",
-        "C#/.NET",
+        "Java and Spring Boot",
+        "C# and .NET",
         "Python",
         "JavaScript",
         "TypeScript",
@@ -87,7 +88,8 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20">
+    <div className="min-h-screen py-20 relative overflow-hidden">
+      <RippleEffect />
       <div className="container mx-auto px-4">
         {/* Introduction */}
         <motion.div
@@ -98,25 +100,60 @@ const About = () => {
         >
           <h1 className="text-4xl font-bold mb-6">About Me</h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            I'm a software developer with a passion for creating web solutions.
-            I kicked off my journey in software engineering at PUCRS in Brazil,
-            diving deep into theoretical computer science topics like discrete
-            mathematics, computational theory, and low-level systems. These
-            studies gave me a strong foundation for tackling complex problems.
+            I started my journey in software engineering at{" "}
+            <strong>PUCRS</strong> in Brazil, diving into{" "}
+            <strong>discrete mathematics</strong>, <strong>calculus</strong>,{" "}
+            <strong>algorithms</strong>, <strong>databases</strong>,{" "}
+            <strong>logic</strong> and <strong>computational theory</strong>.
+            These studies built a strong analytical mindset and gave me a deep
+            understanding of how software works at a fundamental level. Along
+            the way, I explored{" "}
+            <strong>software development methodologies</strong>,{" "}
+            <strong>version control</strong>, and{" "}
+            <strong>programming paradigms</strong>, laying a solid foundation in
+            both theory and practice.
             <br />
             <br />
-            I've built hands-on experience with languages like Java, C#, Python,
-            and JavaScript through internships—working with .NET at Dell and
-            Java/Spring Boot at Panvel—where I also got my first taste of
-            front-end development. That sparked my interest in building
-            user-friendly interfaces.
+            During my internships at <strong>Dell Technologies</strong> and{" "}
+            <strong>Panvel</strong>, I gained hands-on experience across
+            different areas of development. At Dell, I started by contributing
+            to small projects using <strong>C#</strong>, <strong>.NET</strong>,{" "}
+            <strong>Dart</strong>, <strong>Flutter</strong>, and{" "}
+            <strong>Python</strong>. I focused on building tools for automation
+            and text analysis that streamlined workflows and provided valuable
+            insights into enterprise application development. This experience
+            helped me navigate complex codebases and sharpen my documentation
+            practices. Later, I joined a team primarily working with{" "}
+            <strong>Salesforce</strong> and <strong>Apex</strong>, contributing
+            to robust internal business solutions.
+            <br /> <br />
+            At Panvel, I contributed to the online marketplace platform using{" "}
+            <strong>Java</strong> and <strong>Spring Boot</strong>. My tasks
+            included developing <strong>RESTful endpoints</strong> for product
+            search and filtering, enhancing the user experience. Working within
+            the <strong>MVC architecture</strong>, I collaborated on creating{" "}
+            <strong>controllers</strong> to handle HTTP requests,{" "}
+            <strong>services</strong> for business logic, and{" "}
+            <strong>repositories</strong> for data access, ensuring a clean
+            separation of concerns. Additionally, I engaged in{" "}
+            <strong>cross-functional collaborations</strong>, coordinating with
+            various teams to integrate services effectively. Writing{" "}
+            <strong>unit tests</strong> for my code was a key part of my
+            workflow, helping maintain code quality and reliability.
             <br />
             <br />
-            Since then, I've been self-teaching and leveling up my skills,
-            focusing on modern web development with tools like React. Right now,
-            I'm building this personal website to showcase what I can do. I'm
-            excited to bring my mix of theoretical knowledge and real-world
-            experience to a team that values innovation. Let's connect!
+            Since then, I've been actively expanding my skills in full-stack web
+            development. I've built a solid foundation in core web technologies
+            like <strong>HTML</strong>, <strong>CSS</strong>, and{" "}
+            <strong>JavaScript</strong>, and I'm diving deeper into modern
+            frameworks like <strong>React</strong>. My personal website project
+            serves as a dynamic space to showcase my progress while I explore
+            both front-end and back-end technologies. I'm focused on creating a
+            seamless user experience and laying the groundwork for future
+            features like user authentication, database integration, and
+            deployment. As I continue to learn and grow, I'm excited to tackle
+            more complex challenges, including cloud services and artificial
+            intelligence in the future. Let's connect!
           </p>
         </motion.div>
 
@@ -174,7 +211,7 @@ const About = () => {
                   Panvel
                   <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-300 ease-out"></span>
                 </a>
-                <p className="text-sm text-gray-500">2023</p>
+                <p className="text-sm text-gray-500">2022 - 2023</p>
               </div>
               <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                 <li className="flex items-start">
@@ -217,7 +254,7 @@ const About = () => {
                   Dell Technologies
                   <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-300 ease-out"></span>
                 </a>
-                <p className="text-sm text-gray-500">2022</p>
+                <p className="text-sm text-gray-500">2020 - 2021</p>
               </div>
               <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                 <li className="flex items-start">
