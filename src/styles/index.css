@@ -2,17 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-color: #243447;
+  --secondary-color: #1a1f2b;
+  --background-dark: #111827;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-light text-dark dark:bg-dark dark:text-light min-h-screen bg-gradient-to-b from-[#1e3a5f] via-[#1a2634] to-[#0f172a];
+    @apply bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white min-h-screen;
+    user-select: none; /* Prevent selection when dragging over the body */
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  img {
+    user-select: none; /* Prevent text and image selection */
+    cursor: default; /* Set the cursor to default */
+  }
+
+  a {
+    user-select: none; /* Prevent text selection for links */
+    cursor: pointer; /* Keep the clickable cursor for links */
   }
 }
 
+@keyframes gradient-wave {
+  0% {
+    background-position: 200% 50%; /* Start with blue on the far right */
+  }
+  100% {
+    background-position: 0% 50%; /* Move blue across to the far left */
+  }
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent; /* Tailwind utilities */
+  background-image: linear-gradient(
+    90deg,
+    #10b981,
+    /* Emerald */ #60a5fa,
+    /* Blue */ #10b981 /* Emerald */
+  ); /* Custom gradient */
+  background-size: 200% auto; /* Custom property */
+  animation: gradient-wave 2s linear infinite; /* Custom animation */
+}
+
+.animate-gradient-flow {
+  animation: gradient-flow 5s linear infinite; /* Smooth cycling animation */
+  background-size: 300% auto; /* Larger size for seamless looping */
+}
+
 @layer components {
+  .page-container {
+    @apply min-h-screen relative;
+  }
+
+  .main-container {
+    @apply max-w-[2000px] w-full mx-auto px-8 sm:px-12;
+  }
+
+  .section-container {
+    @apply py-16 md:py-24;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .heading-primary {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white;
+  }
+
+  .heading-secondary {
+    @apply text-3xl font-bold text-center mb-12 text-gray-100;
+  }
+
+  .card {
+    @apply bg-white/5 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-white/10;
+  }
+
+  .button-primary {
+    @apply px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-300;
+  }
+
+  .button-secondary {
+    @apply px-6 py-3 rounded-lg border border-white/20 hover:bg-white/10 transition-colors duration-300;
+  }
+
   .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
@@ -39,5 +127,45 @@
 
   .subheading {
     @apply text-xl sm:text-2xl text-secondary mb-8;
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%; /* Start from the middle */
+    bottom: -2px; /* Adjust underline position */
+    width: 0; /* Initially hidden */
+    height: 2px; /* Thickness of the underline */
+    background-color: #34d399; /* Lighter emerald color */
+    opacity: 0; /* Initially hidden */
+    transform: translateX(-50%); /* Center the underline */
+    transition: width 0.2s ease, opacity 0.6s ease; /* Combine width and opacity transitions */
+  }
+
+  .nav-link:hover {
+    color: #34d399; /* Lighter emerald color */
+  }
+
+  .nav-link:hover::after {
+    width: 100%; /* Expand underline from the middle */
+    opacity: 1; /* Fade in the underline */
+  }
+
+  .nav-link.active {
+    color: #34d399; /* Lighter emerald color for the active page */
+    pointer-events: none; /* Disable pointer events for the active link */
+  }
+
+  .nav-link.active::after {
+    width: 100%; /* Keep the underline fully expanded */
+    opacity: 1; /* Keep the underline visible */
   }
 }

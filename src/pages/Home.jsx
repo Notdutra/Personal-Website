@@ -84,9 +84,9 @@ const Home = () => {
               {/* Left Column - Text Content */}
               <div className="text-center lg:text-left">
                 <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ opacity: 0, x: -outerWidth }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1 }}
                   className="heading-primary"
                 >
                   Hi, I'm <span className="text-gradient">Arthur</span>
@@ -227,19 +227,19 @@ const Home = () => {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.5 }}
+                    transition={{ duration: 1, delay: 1 }}
                   >
                     <div className="absolute inset-0 bg-teal-500/10 rounded-full blur-3xl"></div>
                     <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
                   </motion.div>
-                  <div className="relative bg-[#243447] rounded-full shadow-xl p-4 overflow-hidden">
+                  <div className="relative rounded-full shadow-xl overflow-hidden">
                     <motion.img
                       src={profilePic}
                       alt="Arthur Schossler Dutra"
-                      className="w-full h-full rounded-full object-cover"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.3 }}
+                      className="w-full h-full rounded-full"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 1, delay: 0.3 }}
                       loading="eager"
                     />
                   </div>

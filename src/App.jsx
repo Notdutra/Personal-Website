@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
-import "./styles/globals.css";
+import "./styles/index.css";
 
 function App() {
   return (

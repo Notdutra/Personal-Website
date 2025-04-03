@@ -71,7 +71,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="text-lg sm:text-xl md:text-2xl font-bold text-teal-400"
+            className="text-lg sm:text-xl md:text-2xl font-bold text-gradient"
           >
             NotDutra
           </Link>
@@ -82,10 +82,8 @@ const Navbar = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-base lg:text-lg font-medium transition-all duration-200 ${
-                  location.pathname === item.path
-                    ? "text-teal-400"
-                    : "text-gray-200 hover:text-teal-400"
+                className={`nav-link text-base lg:text-lg font-medium transition-all duration-200 ${
+                  location.pathname === item.path ? "active" : ""
                 }`}
               >
                 {item.name}
