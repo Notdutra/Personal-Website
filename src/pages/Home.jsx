@@ -1,74 +1,10 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion"; // Removed AnimatePresence
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 import profilePic from "../assets/me.jpeg";
 import RippleEffect from "../components/RippleEffect";
 import MouseGlow from "../components/MouseGlow";
 
 const Home = () => {
-  const textVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delay: 0.8,
-        staggerChildren: 0.8,
-      },
-    },
-  };
-
-  const logoVariants = {
-    initial: { scale: 1 },
-    hover: {
-      scale: 1.05,
-      transition: { duration: 0.2 },
-    },
-  };
-
-  const linkAnimation = {
-    y: [0, -3, 0],
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  };
-
-  const AnimatedText = ({ text, className, intensity = 1 }) => {
-    return (
-      <span className={className}>
-        {text.split("").map((char, index) => (
-          <motion.span
-            key={index}
-            className="inline-block"
-            animate={{
-              y: [0, -2 * intensity, 0],
-              rotate: [0, -4 * intensity, 0],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: index * 0.1,
-              ease: "easeInOut",
-            }}
-          >
-            {char}
-          </motion.span>
-        ))}
-      </span>
-    );
-  };
-
   return (
     <div className="min-h-screen py-20 relative overflow-hidden">
       <div className="fixed inset-0 z-0">
