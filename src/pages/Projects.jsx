@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
-import RippleEffect from "../effects/RippleEffect";
-import MouseGlow from "../effects/MouseGlow";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -19,10 +17,6 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen py-20 relative overflow-hidden">
-      <div className="fixed inset-0 z-0">
-        <MouseGlow />
-        <RippleEffect />
-      </div>
       <div className="relative z-10">
         <div className="container mx-auto px-4">
           {/* Hero Section */}

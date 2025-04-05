@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiMapPin, FiGithub, FiLinkedin } from "react-icons/fi";
-import RippleEffect from "../effects/RippleEffect";
-import MouseGlow from "../effects/MouseGlow";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -28,10 +26,6 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen py-20 relative overflow-hidden">
-      <div className="fixed inset-0 z-0">
-        <MouseGlow />
-        <RippleEffect />
-      </div>
       <div className="relative z-10">
         {/* Hero Section */}
         <section className="py-20">

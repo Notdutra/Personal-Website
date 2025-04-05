@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion"; // Removed AnimatePresence
 import { FiGithub, FiLinkedin } from "react-icons/fi";
-import profilePic from "../assets/me.jpeg";
+import profilePic from "../assets/profile-picture.jpeg";
 
 const Home = () => {
   return (
