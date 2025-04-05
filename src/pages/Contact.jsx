@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiMapPin, FiGithub, FiLinkedin } from "react-icons/fi";
-import RippleEffect from "../components/RippleEffect";
-import MouseGlow from "../components/MouseGlow";
+import RippleEffect from "../effects/RippleEffect";
+import MouseGlow from "../effects/MouseGlow";
 
 const Contact = () => {
   const [formData, setFormData] = useState({

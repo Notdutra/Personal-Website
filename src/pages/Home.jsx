@@ -1,8 +1,8 @@
 import { motion } from "framer-motion"; // Removed AnimatePresence
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 import profilePic from "../assets/me.jpeg";
-import RippleEffect from "../components/RippleEffect";
-import MouseGlow from "../components/MouseGlow";
+import RippleEffect from "../effects/RippleEffect";
+import MouseGlow from "../effects/MouseGlow";
 
 const Home = () => {
   return (

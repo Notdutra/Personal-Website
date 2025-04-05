@@ -12,8 +12,8 @@ import {
   FiAward,
   FiStar,
 } from "react-icons/fi";
-import RippleEffect from "../components/RippleEffect";
-import MouseGlow from "../components/MouseGlow";
+import RippleEffect from "../effects/RippleEffect";
+import MouseGlow from "../effects/MouseGlow";
 
 const About = () => {
   const skills = [

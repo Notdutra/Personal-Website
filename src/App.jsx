@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import Navbar from "./components/Navbar";
+import Navbar from "./layouts/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Projects from "./pages/Projects";

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
-import RippleEffect from "../components/RippleEffect";
-import MouseGlow from "../components/MouseGlow";
+import RippleEffect from "../effects/RippleEffect";
+import MouseGlow from "../effects/MouseGlow";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
