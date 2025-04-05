@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 import profilePic from "../assets/me.jpeg";
 import RippleEffect from "../components/RippleEffect";
+import MouseGlow from "../components/MouseGlow";
 
 const Home = () => {
   const textVariants = {
@@ -69,13 +70,11 @@ const Home = () => {
   };
 
   return (
-    <div className="page-container">
-      {/* Background wrapper - fixed position */}
+    <div className="min-h-screen py-20 relative overflow-hidden">
       <div className="fixed inset-0 z-0">
+        <MouseGlow />
         <RippleEffect />
       </div>
-
-      {/* Content wrapper */}
       <div className="relative z-10">
         {/* Hero Section */}
         <section className="min-h-[100vh] flex items-center justify-center pt-24 md:pt-16">
