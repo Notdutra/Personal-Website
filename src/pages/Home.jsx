@@ -1,16 +1,11 @@
+import React from "react";
 import { motion } from "framer-motion"; // Removed AnimatePresence
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 import profilePic from "../assets/me.jpeg";
-import RippleEffect from "../effects/RippleEffect";
-import MouseGlow from "../effects/MouseGlow";
 
 const Home = () => {
   return (
     <div className="min-h-screen py-20 relative overflow-hidden">
-      <div className="fixed inset-0 z-0">
-        <MouseGlow />
-        <RippleEffect />
-      </div>
       <div className="relative z-10">
         {/* Hero Section */}
         <section className="min-h-[100vh] flex items-center justify-center pt-24 md:pt-16">
@@ -24,7 +19,7 @@ const Home = () => {
                   transition={{ duration: 1 }}
                   className="heading-primary"
                 >
-                  Hi, I'm <span className="text-gradient">Arthur</span>
+                  Hi, I&apos;m <span className="text-gradient">Arthur</span>
                 </motion.h1>
                 <div className="text-xl text-gray-300 mb-8 space-y-4">
                   <motion.p
@@ -45,7 +40,7 @@ const Home = () => {
                         ease: "easeInOut",
                       }}
                     >
-                      I'm a software developer with a strong foundation in
+                      I&apos;m a software developer with a strong foundation in
                       computer science from PUCRS, learning web and full-stack
                       development.
                     </motion.span>
@@ -121,7 +116,7 @@ const Home = () => {
                         ease: "easeInOut",
                       }}
                     >
-                      Currently, I'm focused on modern web development with
+                      Currently, I&apos;m focused on modern web development with
                       React, creating innovative solutions that bridge
                       theoretical knowledge with practical applications.
                     </motion.span>

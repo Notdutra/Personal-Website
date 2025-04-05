@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import {
   FiCode,
@@ -12,8 +13,6 @@ import {
   FiAward,
   FiStar,
 } from "react-icons/fi";
-import RippleEffect from "../effects/RippleEffect";
-import MouseGlow from "../effects/MouseGlow";
 
 const About = () => {
   const skills = [
@@ -85,10 +84,6 @@ const About = () => {
 
   return (
     <div className="min-h-screen py-20 relative overflow-hidden">
-      <div className="fixed inset-0 z-0">
-        <MouseGlow />
-        <RippleEffect />
-      </div>
       <div className="relative z-10">
         <div className="container mx-auto px-4">
           {/* Introduction */}
@@ -144,18 +139,18 @@ const About = () => {
               workflow, helping maintain code quality and reliability.
               <br />
               <br />
-              Since then, I've been actively expanding my skills in full-stack
-              web development. I've built a solid foundation in core web
+              Since then, I&apos;ve been actively expanding my skills in full-stack
+              web development. I&apos;ve built a solid foundation in core web
               technologies like <strong>HTML</strong>, <strong>CSS</strong>, and{" "}
-              <strong>JavaScript</strong>, and I'm diving deeper into modern
+              <strong>JavaScript</strong>, and I&apos;m diving deeper into modern
               frameworks like <strong>React</strong>. My personal website
               project serves as a dynamic space to showcase my progress while I
-              explore both front-end and back-end technologies. I'm focused on
+              explore both front-end and back-end technologies. I&apos;m focused on
               creating a seamless user experience and laying the groundwork for
               future features like user authentication, database integration,
-              and deployment. As I continue to learn and grow, I'm excited to
+              and deployment. As I continue to learn and grow, I&apos;m excited to
               tackle more complex challenges, including cloud services and
-              artificial intelligence in the future. Let's connect!
+              artificial intelligence in the future. Let&apos;s connect!
             </p>
           </motion.div>
 
