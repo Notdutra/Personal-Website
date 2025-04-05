@@ -63,7 +63,7 @@ const Navbar = () => {
   return (
     <motion.nav
       initial={{ y: 0 }}
-      animate={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : -100 }} // Hide navbar when not visible
       transition={{ duration: 0.3 }}
       className="fixed w-full z-50 backdrop-blur-sm"
     >
