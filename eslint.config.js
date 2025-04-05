@@ -1,35 +1,48 @@
-import { defineConfig } from "eslint/config";
+import { defineConfig } from "eslint-define-config";
 import globals from "globals";
 import js from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
+import babelParser from "@babel/eslint-parser";
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,jsx}"] },
   {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
-    languageOptions: { globals: { ...globals.browser, ...globals.node } },
+    ignores: ["node_modules/**", "dist/**", "build/**", ".git/**"],
   },
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
-    plugins: { js },
-    extends: ["js/recommended"],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+      parser: babelParser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: {
+          jsx: true,
+        },
+        requireConfigFile: false,
+        babelOptions: {
+          presets: ["@babel/preset-react"],
+        },
+      },
+    },
   },
-
-  // React configuration with version specified
+  js.configs.recommended,
   {
     files: ["**/*.{js,jsx}"],
     plugins: { react: pluginReact },
     settings: {
       react: {
-        version: "detect", // Automatically detect React version from package.json
+        version: "detect",
       },
     },
     rules: {
-      // Turn off requirement for React to be in scope
+      ...pluginReact.configs.recommended.rules,
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
-      "react/jsx-uses-vars": "error",
+      "react/prop-types": "off",
     },
   },
-  pluginReact.configs.flat.recommended,
 ]);

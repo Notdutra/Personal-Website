@@ -1,4 +1,3 @@
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
@@ -12,7 +11,7 @@ const RippleEffect = () => {
     const handleMouseDown = (e) => {
       if (isThrottled.current) return;
       isThrottled.current = true;
-      
+
       setTimeout(() => {
         isThrottled.current = false;
       }, 150); // Increased throttle for better performance
@@ -39,14 +38,16 @@ const RippleEffect = () => {
       // Limit number of active ripples more aggressively
       setRipples((prev) => {
         const updatedRipples = [...prev, newRipple];
-        return updatedRipples.length > MAX_RIPPLES 
-          ? updatedRipples.slice(updatedRipples.length - MAX_RIPPLES) 
+        return updatedRipples.length > MAX_RIPPLES
+          ? updatedRipples.slice(updatedRipples.length - MAX_RIPPLES)
           : updatedRipples;
       });
 
       // Remove ripple after animation completes
       rippleTimeouts.current[newRipple.id] = setTimeout(() => {
-        setRipples((prev) => prev.filter((ripple) => ripple.id !== newRipple.id));
+        setRipples((prev) =>
+          prev.filter((ripple) => ripple.id !== newRipple.id)
+        );
         delete rippleTimeouts.current[newRipple.id];
       }, 2000);
     };
@@ -65,29 +66,30 @@ const RippleEffect = () => {
         <motion.div
           key={ripple.id}
           className="fixed pointer-events-none"
-          initial={{ 
-            width: 0, 
-            height: 0, 
+          initial={{
+            width: 0,
+            height: 0,
             opacity: 0.7,
             top: ripple.y,
             left: ripple.x,
             x: "-50%",
             y: "-50%",
           }}
-          animate={{ 
-            width: 1000, 
+          animate={{
+            width: 1000,
             height: 1000,
             opacity: 0,
           }}
-          exit={{ 
+          exit={{
             opacity: 0,
           }}
-          transition={{ 
+          transition={{
             duration: 2,
             ease: "easeOut",
           }}
           style={{
-            background: "radial-gradient(circle, rgba(45, 212, 191, 0.2) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, rgba(45, 212, 191, 0.2) 0%, transparent 70%)",
             borderRadius: "50%",
             filter: "blur(8px)",
             willChange: "transform, opacity, width, height",

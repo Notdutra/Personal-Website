@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,52 +5,13 @@ import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
 
-  // Reset scroll position when route changes
+  // Reset scroll position when route changes and close mobile menu
   useEffect(() => {
     window.scrollTo(0, 0);
-    setIsVisible(true);
     setIsOpen(false); // Close mobile menu on route change
   }, [location]);
-
-  // Handle scroll events
-  useEffect(() => {
-    const controlNavbar = () => {
-      const currentScrollY = window.scrollY;
-
-      // Get the photo frame element position
-      const photoFrame = document.querySelector(".rounded-full");
-      if (!photoFrame) return;
-
-      // Get the position of the top of the photo frame, minus a small offset
-      const framePosition =
-        photoFrame.getBoundingClientRect().top + window.scrollY + 58;
-
-      if (currentScrollY > framePosition - 100) {
-        // Start hiding slightly before reaching the frame
-        // Near or past the frame
-        if (currentScrollY > lastScrollY) {
-          // Scrolling down
-          setIsVisible(false);
-        }
-      } else {
-        // Above the frame
-        setIsVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", controlNavbar);
-    window.addEventListener("resize", controlNavbar);
-    return () => {
-      window.removeEventListener("scroll", controlNavbar);
-      window.removeEventListener("resize", controlNavbar);
-    };
-  }, [lastScrollY]);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -63,7 +23,7 @@ const Navbar = () => {
   return (
     <motion.nav
       initial={{ y: 0 }}
-      animate={{ y: isVisible ? 0 : -100 }} // Hide navbar when not visible
+      animate={{ y: 0 }} // Always visible
       transition={{ duration: 0.3 }}
       className="fixed w-full z-50 backdrop-blur-sm"
     >

@@ -13,11 +13,23 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal overflow at the HTML level */
   }
 
   body {
     @apply bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white min-h-screen;
     user-select: none; /* Prevent selection when dragging over the body */
+    overflow-x: hidden; /* Prevent horizontal overflow at the body level */
+  }
+
+  /* Hide scrollbars for webkit browsers while preserving functionality */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For Firefox */
+  * {
+    scrollbar-width: none;
   }
 
   p,

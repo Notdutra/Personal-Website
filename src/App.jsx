@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Navbar from "./layouts/Navbar";
@@ -8,7 +7,7 @@ import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import RippleEffect from "./effects/RippleEffect";
 import MouseGlow from "./effects/MouseGlow";
-import "./styles/index.css";
+import "./styles/global.css";
 
 function App() {
   return (
