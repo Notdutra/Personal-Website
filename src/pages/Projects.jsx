@@ -26,23 +26,32 @@ const Projects = () => {
     availableCategories.includes("All") ? "All" : availableCategories[0] || ""
   );
 
-  return (
-    <div className="min-h-screen py-20 relative overflow-hidden">
-      <div className="relative z-10">
-        <ProjectsHero />
-
-        {/* Only show filter if there are multiple categories */}
-        {availableCategories.length > 1 && (
-          <ProjectsFilter
-            categories={availableCategories}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-          />
-        )}
-
-        <ProjectsGrid activeCategory={activeCategory} />
+  if (projects.length === 0) {
+    return (
+      <div className="text-center py-16">
+        <h3 className="text-3xl font-bold text-gray-300 mb-4">
+          Coming Soon! 🚀
+        </h3>
+        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          I&apos;m currently working on adding my portfolio projects. Check back
+          soon to see what I&apos;ve been building!
+        </p>
       </div>
-    </div>
+    );
+  }
+  return (
+    <>
+      <ProjectsHero />
+      {/* Only show filter if there are multiple categories */}
+      {availableCategories.length > 1 && (
+        <ProjectsFilter
+          categories={availableCategories}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
+      )}
+      <ProjectsGrid activeCategory={activeCategory} />
+    </>
   );
 };
 
