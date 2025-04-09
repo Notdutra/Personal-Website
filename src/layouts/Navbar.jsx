@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  // Handle scroll and highlight active section
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll("section[id]");
-      const scrollPosition = window.scrollY + 100; // Offset for better UX
+      const scrollPosition = window.scrollY;
 
       sections.forEach((section) => {
         const sectionTop = section.offsetTop;
@@ -33,6 +32,7 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", path: "#home" },
     { name: "About", path: "#about" },
+    { name: "Skills", path: "#skills" },
     { name: "Projects", path: "#projects" },
     { name: "Contact", path: "#contact" },
   ];
@@ -62,7 +62,7 @@ const Navbar = () => {
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, "home")}
-            className="text-lg sm:text-xl md:text-2xl font-bold text-gradient">
+            className="text-lg sm:text-xl md:text-2xl font-bold text-gradient select-none">
             NotDutra
           </a>
 

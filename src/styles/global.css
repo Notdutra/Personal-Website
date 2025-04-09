@@ -18,7 +18,6 @@
 
   body {
     @apply bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white min-h-screen;
-    user-select: none; /* Prevent selection when dragging over the body */
     overflow-x: hidden; /* Prevent horizontal overflow at the body level */
   }
 
@@ -26,8 +25,6 @@
   ::-webkit-scrollbar {
     display: none;
   }
-
-  /* For Firefox */
   * {
     scrollbar-width: none;
   }
@@ -38,42 +35,36 @@
   h3,
   h4,
   h5,
-  h6,
+  h6 {
+    /* user-select: none; */
+    cursor: default;
+  }
+
   img {
-    user-select: none; /* Prevent text and image selection */
-    cursor: default; /* Set the cursor to default */
+    user-select: none;
+    cursor: default;
   }
 
   a {
-    user-select: none; /* Prevent text selection for links */
-    cursor: pointer; /* Keep the clickable cursor for links */
+    /* user-select: none; */
+    cursor: pointer;
   }
 }
 
-@keyframes gradient-wave {
+@keyframes wave-animation {
   0% {
-    background-position: 200% 50%; /* Start with blue on the far right */
+    background-position: 200%;
   }
   100% {
-    background-position: 0% 50%; /* Move blue across to the far left */
+    background-position: 0%;
   }
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent; /* Tailwind utilities */
-  background-image: linear-gradient(
-    90deg,
-    #10b981,
-    /* Emerald */ #60a5fa,
-    /* Blue */ #10b981 /* Emerald */
-  ); /* Custom gradient */
-  background-size: 200% auto; /* Custom property */
-  animation: gradient-wave 2s linear infinite; /* Custom animation */
-}
-
-.animate-gradient-flow {
-  animation: gradient-flow 5s linear infinite; /* Smooth cycling animation */
-  background-size: 300% auto; /* Larger size for seamless looping */
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(90deg, #10b981, #60a5fa, #10b981);
+  background-size: 200% auto;
+  animation: wave-animation 2s linear infinite;
 }
 
 @layer components {
@@ -147,38 +138,39 @@
     color: inherit;
     text-decoration: none;
     transition: color 0.2s ease;
+    user-select: none;
   }
 
   .nav-link::after {
     content: "";
     position: absolute;
-    left: 50%; /* Start from the middle */
-    bottom: -2px; /* Adjust underline position */
-    width: 0; /* Initially hidden */
-    height: 2px; /* Thickness of the underline */
-    background-color: #34d399; /* Lighter emerald color */
-    opacity: 0; /* Initially hidden */
-    transform: translateX(-50%); /* Center the underline */
-    transition: width 0.3s ease, opacity 0.3s ease; /* Combine width and opacity transitions */
+    left: 50%;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: #34d399;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: width 0.3s ease, opacity 0.3s ease;
   }
 
   .nav-link:hover {
-    color: #34d399; /* Lighter emerald color */
+    color: #34d399;
   }
 
   .nav-link:hover::after {
-    width: 100%; /* Expand underline from the middle */
-    opacity: 1; /* Fade in the underline */
+    width: 100%;
+    opacity: 1;
   }
 
   .nav-link.active {
-    color: #34d399; /* Lighter emerald color for the active page */
-    pointer-events: none; /* Disable pointer events for the active link */
+    color: #34d399;
+    pointer-events: none;
   }
 
   .nav-link.active::after {
-    width: 100%; /* Keep the underline fully expanded */
-    opacity: 1; /* Keep the underline visible */
+    width: 100%;
+    opacity: 1;
   }
 }
 

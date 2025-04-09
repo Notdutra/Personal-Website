@@ -1,16 +1,15 @@
-import { motion } from "motion/react";
 import { useState } from "react";
 import { FiBook, FiBriefcase, FiCode, FiArrowRight } from "react-icons/fi";
 import SectionCard from "./SectionCard";
 
 const AboutIntro = () => {
-  const [expandedCard, setExpandedCard] = useState(null);
+  const [expandedCards, setExpandedCards] = useState([]);
 
   const toggleCard = (title) => {
-    if (expandedCard === title) {
-      setExpandedCard(null);
+    if (expandedCards.includes(title)) {
+      setExpandedCards(expandedCards.filter((card) => card !== title));
     } else {
-      setExpandedCard(title);
+      setExpandedCards([...expandedCards, title]);
     }
   };
 
@@ -56,11 +55,7 @@ const AboutIntro = () => {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-4xl mx-auto mb-16">
+    <div className="max-w-4xl mx-auto mb-16">
       <h1 className="text-4xl font-bold mb-6 text-center">About Me</h1>
       <p className="text-xl text-gray-300 text-center mb-12">
         My journey from software engineering student to full-stack developer
@@ -71,21 +66,13 @@ const AboutIntro = () => {
           <SectionCard
             key={section.title}
             section={section}
-            expanded={expandedCard === section.title}
+            expanded={expandedCards.includes(section.title)}
             toggleExpand={toggleCard}
             index={index}
           />
         ))}
       </div>
-
-      <div className="text-center mt-8">
-        <a
-          href="/contact"
-          className="inline-flex items-center text-primary hover:underline">
-          Let&apos;s connect <FiArrowRight className="ml-2" />
-        </a>
-      </div>
-    </motion.div>
+    </div>
   );
 };
 
