@@ -1,15 +1,15 @@
-import { defineConfig } from "eslint-define-config";
-import globals from "globals";
-import js from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
-import babelParser from "@babel/eslint-parser";
+import { defineConfig } from 'eslint-define-config';
+import globals from 'globals';
+import js from '@eslint/js';
+import pluginReact from 'eslint-plugin-react';
+import babelParser from '@babel/eslint-parser';
 
 export default defineConfig([
   {
-    ignores: ["node_modules/**", "dist/**", "build/**", ".git/**"],
+    ignores: ['node_modules/**', 'dist/**', 'build/**', '.git/**'],
   },
   {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
+    files: ['**/*.{js,mjs,cjs,jsx}'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -17,32 +17,32 @@ export default defineConfig([
       },
       parser: babelParser,
       parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
+        ecmaVersion: 'latest',
+        sourceType: 'module',
         ecmaFeatures: {
           jsx: true,
         },
         requireConfigFile: false,
         babelOptions: {
-          presets: ["@babel/preset-react"],
+          presets: ['@babel/preset-react'],
         },
       },
     },
   },
   js.configs.recommended,
   {
-    files: ["**/*.{js,jsx}"],
+    files: ['**/*.{js,jsx}'],
     plugins: { react: pluginReact },
     settings: {
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
     rules: {
       ...pluginReact.configs.recommended.rules,
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-uses-react": "off",
-      "react/prop-types": "off",
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off',
+      'react/prop-types': 'off',
     },
   },
 ]);
