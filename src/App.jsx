@@ -1,5 +1,5 @@
 import './styles/global.css';
-import Navbar from './layouts/Navbar';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Skills from './pages/Skills';

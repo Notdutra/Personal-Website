@@ -24,20 +24,22 @@ const Contact = () => {
 
   return (
     <section id="contact">
-      <div className="flex flex-col justify-center mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-20 md:py-16 min-h-screen container">
-        <div className="mx-auto mb-8 sm:mb-12 max-w-3xl text-center">
+      <div className="flexColumn">
+        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="mb-4 font-bold text-white text-4xl md:text-5xl heading-responsive">
+            className="heading-primary"
+          >
             Get in Touch
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-gray-300 text-lg md:text-xl leading-relaxed">
+            className="text-lg leading-relaxed text-gray-300 md:text-xl"
+          >
             Have a question or want to work together? Feel free to reach out!
           </motion.p>
         </div>
@@ -47,14 +49,11 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="bg-[#1a1f2b]/80 shadow-xl hover:shadow-2xl backdrop-blur-sm p-6 sm:p-8 md:p-10 border border-white/10 hover:border-white/20 rounded-2xl transition-all duration-300">
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5 sm:space-y-6">
+            className="rounded-2xl border border-white/10 bg-[#1a1f2b]/80 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-8 md:p-10"
+          >
+            <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
               <div>
-                <label
-                  htmlFor="name"
-                  className="block mb-2 font-medium text-gray-200 text-sm">
+                <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-200">
                   Name
                 </label>
                 <input
@@ -63,14 +62,12 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="bg-white/5 backdrop-blur-sm px-4 py-3 border border-white/10 focus:border-teal-400/70 rounded-lg focus:ring-2 focus:ring-teal-400/50 w-full text-white transition-all duration-200"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
                   required
                 />
               </div>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 font-medium text-gray-200 text-sm">
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-200">
                   Email
                 </label>
                 <input
@@ -79,14 +76,12 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="bg-white/5 backdrop-blur-sm px-4 py-3 border border-white/10 focus:border-teal-400/70 rounded-lg focus:ring-2 focus:ring-teal-400/50 w-full text-white transition-all duration-200"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
                   required
                 />
               </div>
               <div>
-                <label
-                  htmlFor="subject"
-                  className="block mb-2 font-medium text-gray-200 text-sm">
+                <label htmlFor="subject" className="mb-2 block text-sm font-medium text-gray-200">
                   Subject
                 </label>
                 <input
@@ -95,14 +90,12 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="bg-white/5 backdrop-blur-sm px-4 py-3 border border-white/10 focus:border-teal-400/70 rounded-lg focus:ring-2 focus:ring-teal-400/50 w-full text-white transition-all duration-200"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
                   required
                 />
               </div>
               <div>
-                <label
-                  htmlFor="message"
-                  className="block mb-2 font-medium text-gray-200 text-sm">
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-200">
                   Message
                 </label>
                 <textarea
@@ -111,12 +104,14 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows="5"
-                  className="bg-white/5 backdrop-blur-sm px-4 py-3 border border-white/10 focus:border-teal-400/70 rounded-lg focus:ring-2 focus:ring-teal-400/50 w-full text-white transition-all duration-200"
-                  required></textarea>
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  required
+                ></textarea>
               </div>
               <button
                 type="submit"
-                className="bg-gradient-to-r from-teal-500 hover:from-teal-600 to-blue-500 hover:to-blue-600 shadow-md hover:shadow-lg px-6 sm:px-8 py-3 sm:py-4 rounded-lg w-full font-medium text-white transition-all duration-300">
+                className="w-full rounded-lg bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-3 font-medium text-white shadow-md transition-all duration-300 hover:from-teal-600 hover:to-blue-600 hover:shadow-lg sm:px-8 sm:py-4"
+              >
                 Send Message
               </button>
             </form>

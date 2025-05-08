@@ -1,48 +1,50 @@
 import { defineConfig } from 'eslint-define-config';
+import reactPlugin from 'eslint-plugin-react';
+import tailwindcssPlugin from 'eslint-plugin-tailwindcss';
+import prettierConfig from 'eslint-config-prettier';
 import globals from 'globals';
-import js from '@eslint/js';
-import pluginReact from 'eslint-plugin-react';
 import babelParser from '@babel/eslint-parser';
 
 export default defineConfig([
   {
-    ignores: ['node_modules/**', 'dist/**', 'build/**', '.git/**'],
-  },
-  {
-    files: ['**/*.{js,mjs,cjs,jsx}'],
+    files: ['src/**/*.{js,jsx}', 'src/**/*.js', 'src/**/*.jsx'],
     languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
       parser: babelParser,
       parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true,
-        },
         requireConfigFile: false,
         babelOptions: {
           presets: ['@babel/preset-react'],
         },
+        ecmaVersion: 2022,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
+      globals: globals.browser,
     },
-  },
-  js.configs.recommended,
-  {
-    files: ['**/*.{js,jsx}'],
-    plugins: { react: pluginReact },
+    plugins: {
+      react: reactPlugin,
+      tailwindcss: tailwindcssPlugin,
+    },
+    rules: {
+      semi: 'error',
+      'prefer-const': 'error',
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+      ...tailwindcssPlugin.configs.recommended.rules,
+    },
     settings: {
       react: {
         version: 'detect',
       },
     },
-    rules: {
-      ...pluginReact.configs.recommended.rules,
-      'react/react-in-jsx-scope': 'off',
-      'react/jsx-uses-react': 'off',
-      'react/prop-types': 'off',
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
     },
+  },
+  ...[prettierConfig],
+  {
+    ignores: ['node_modules/**', 'dist/**', 'build/**', '.git/**', '.vite/**'],
   },
 ]);
