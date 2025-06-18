@@ -1,0 +1,279 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #243447;
+  --secondary-color: #1a1f2b;
+  --background-dark: #111827;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+}
+
+* {
+  user-select: none;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    scroll-padding-top: 4rem; /* Set to navbar height */
+    background-color: var(--background-dark);
+  }
+
+  body {
+    @apply min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white;
+    overflow-x: hidden; /* Prevent horizontal overflow at the body level */
+  }
+
+  /* Hide scrollbars for webkit browsers while preserving functionality */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    scrollbar-width: none;
+  }
+
+  /* Base styles for scroll targets */
+  [id] {
+    scroll-margin-top: 4rem; /* Set to navbar height */
+  }
+}
+
+@keyframes wave-animation {
+  0% {
+    background-position: 200%;
+  }
+  100% {
+    background-position: 0%;
+  }
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(90deg, #10b981, #60a5fa, #10b981);
+  background-size: 200% auto;
+  animation: wave-animation 2s linear infinite;
+}
+
+@layer components {
+  .page-container {
+    @apply relative min-h-screen;
+  }
+
+  .main-container {
+    @apply mx-auto w-full max-w-[2000px] px-8 sm:px-12;
+  }
+
+  .heading-primary {
+    @apply mb-6 pt-10 text-4xl font-bold text-white sm:pt-8 md:pt-4 md:text-5xl lg:text-6xl;
+  }
+
+  .heading-secondary {
+    @apply mb-12 pt-10 text-center text-3xl font-bold text-gray-100 sm:pt-8 md:pt-4;
+  }
+
+  .card {
+    @apply overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-lg backdrop-blur-sm transition-shadow duration-300 hover:shadow-xl;
+  }
+
+  .button-primary {
+    @apply rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-blue-700;
+  }
+
+  .button-secondary {
+    @apply rounded-lg border border-white/20 px-6 py-3 transition-colors duration-300 hover:bg-white/10;
+  }
+
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply rounded-lg px-4 py-2 font-medium transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply btn bg-secondary text-white hover:bg-secondary/90;
+  }
+
+  .heading {
+    @apply mb-6 text-3xl font-bold sm:text-4xl;
+  }
+
+  .subheading {
+    @apply mb-8 text-xl text-secondary sm:text-2xl;
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: #34d399;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition:
+      width 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #34d399;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+    opacity: 1;
+  }
+
+  .nav-link.active {
+    color: #34d399;
+    pointer-events: none;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+    opacity: 1;
+  }
+
+  .responsive-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .text-responsive-base {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+
+  .text-responsive-lg {
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+  }
+
+  .py-responsive {
+    @apply py-6 sm:py-8 md:py-12 lg:py-16;
+  }
+
+  .p-responsive {
+    @apply p-4 sm:p-6 md:p-8 lg:p-10;
+  }
+}
+
+@layer utilities {
+  .spring-hover {
+    @apply transition-transform duration-300;
+    transform-origin: center;
+  }
+
+  .spring-hover:hover {
+    animation: spring-bounce 0.5s;
+  }
+
+  .spring-hover:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+  }
+}
+
+@keyframes spring-bounce {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.spring-hover-light:hover {
+  animation: spring-bounce-light 0.4s;
+}
+
+.spring-hover-strong:hover {
+  animation: spring-bounce-strong 0.6s;
+}
+
+@keyframes spring-bounce-light {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes spring-bounce-strong {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 475px) {
+  .xs\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.heading-primary {
+  @apply mb-6 font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl;
+}
+
+.flexColumn {
+  @apply container mx-auto flex min-h-screen flex-col px-4 sm:px-6 md:px-8 md:py-16 lg:px-12;
+}
+
+.flexRow {
+  @apply container mx-auto flex min-h-screen items-center px-4 py-20 sm:px-6 md:px-8 md:py-16 lg:px-12;
+}

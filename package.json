@@ -1,0 +1,51 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "description": "A modern web app built with React and Tailwind CSS",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Notdutra/Personal-Website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Notdutra/Personal-Website/issues"
+  },
+  "homepage": "https://github.com/Notdutra/Personal-Website#readme",
+  "dependencies": {
+    "motion": "^12.18.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/eslint-parser": "^7.27.5",
+    "@babel/preset-react": "^7.27.1",
+    "@eslint/js": "^9.29.0",
+    "@vitejs/plugin-react": "^4.5.2",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "globals": "^16.2.0",
+    "postcss": "^8.5.6",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.12",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.3.5"
+  }
+}

@@ -1,0 +1,30 @@
+node_modules/
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+.vite/
+.env
+.env.local
+.env.*.local
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+package-lock.json
+yarn.lock
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
