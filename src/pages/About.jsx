@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SectionCard from '../components/about/SectionCard';
 import { sections } from '../data/about';
 
@@ -7,25 +7,31 @@ const About = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const handleCardClick = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+    if (expandedIndex === index) {
+      setExpandedIndex(null);
+    } else {
+      setExpandedIndex(index);
+    }
   };
 
-  return (
-    <section id="about">
-      {/* Add overlay when card is expanded */}
-      <AnimatePresence>
-        {expandedIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm"
-            onClick={() => setExpandedIndex(null)}
-          />
-        )}
-      </AnimatePresence>
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape' && expandedIndex !== null) {
+        setExpandedIndex(null);
+      }
+    };
 
+    if (expandedIndex !== null) {
+      document.addEventListener('keydown', handleEscKey);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [expandedIndex]);
+
+  return (
+    <section id="about" className="relative">
       <div className="flexColumn">
         <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
           <motion.h1
@@ -50,29 +56,44 @@ const About = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8"
+          className="relative mx-auto mt-4 w-full max-w-5xl overflow-visible md:mt-8"
         >
-          <AnimatePresence>
-            {sections.map((section, index) => (
-              <motion.div
-                key={section.title}
-                layout
-                animate={{
-                  scale: expandedIndex !== null && expandedIndex !== index ? 0.8 : 1,
-                  opacity: expandedIndex !== null && expandedIndex !== index ? 0 : 1,
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                <SectionCard
-                  section={section}
-                  index={index}
-                  isExpanded={expandedIndex === index}
-                  onClick={handleCardClick}
-                  totalCards={sections.length}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
+          <div className="relative grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
+            <AnimatePresence initial={false} mode="sync">
+              {sections.map((section, index) => {
+                const isLeftColumn = index % 2 === 0;
+                const rowIndex = Math.floor(index / 2);
+
+                return (
+                  <motion.div
+                    key={section.title}
+                    initial={false}
+                    animate={{
+                      opacity: expandedIndex !== null && expandedIndex !== index ? 0.35 : 1,
+                      filter:
+                        expandedIndex !== null && expandedIndex !== index ? 'blur(1px)' : 'none',
+                      scale: expandedIndex !== null && expandedIndex !== index ? 1 : 1,
+                    }}
+                    transition={{
+                      duration: expandedIndex === null ? 0.4 : 0.2,
+                      ease: 'easeOut',
+                    }}
+                    className={`relative flex h-auto ${expandedIndex === index ? 'z-30' : 'overflow-hidden'}`}
+                  >
+                    <SectionCard
+                      section={section}
+                      index={index}
+                      isExpanded={expandedIndex === index}
+                      onClick={handleCardClick}
+                      position={isLeftColumn ? 'left' : 'right'}
+                      rowIndex={rowIndex}
+                      isLeftColumn={isLeftColumn}
+                    />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
         </motion.div>
       </div>
     </section>
