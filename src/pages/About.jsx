@@ -3,32 +3,59 @@ import { useState, useEffect } from 'react';
 import SectionCard from '../components/about/SectionCard';
 import { sections } from '../data/about';
 
+const isDesktop = () => typeof window !== 'undefined' && window.innerWidth >= 768;
+
 const About = () => {
-  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState(isDesktop() ? null : []);
+  const [desktopMode, setDesktopMode] = useState(isDesktop());
+
+  useEffect(() => {
+    const handleResize = () => {
+      const desktop = isDesktop();
+      setDesktopMode(desktop);
+      setExpandedIndex((prev) => {
+        if (desktop) {
+          if (Array.isArray(prev)) return prev.length > 0 ? prev[0] : null;
+          return prev;
+        } else {
+          return prev === null ? [] : Array.isArray(prev) ? prev : [prev];
+        }
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleCardClick = (index) => {
-    if (expandedIndex === index) {
-      setExpandedIndex(null);
+    if (desktopMode) {
+      setExpandedIndex((prev) => (prev === index ? null : index));
     } else {
-      setExpandedIndex(index);
+      setExpandedIndex((prev) => {
+        if (prev.includes(index)) {
+          return prev.filter((i) => i !== index);
+        } else {
+          return [...prev, index];
+        }
+      });
     }
   };
 
   useEffect(() => {
     const handleEscKey = (event) => {
-      if (event.key === 'Escape' && expandedIndex !== null) {
-        setExpandedIndex(null);
+      if (
+        event.key === 'Escape' &&
+        ((desktopMode && expandedIndex !== null) || (!desktopMode && expandedIndex.length > 0))
+      ) {
+        setExpandedIndex(desktopMode ? null : []);
       }
     };
-
-    if (expandedIndex !== null) {
+    if ((desktopMode && expandedIndex !== null) || (!desktopMode && expandedIndex.length > 0)) {
       document.addEventListener('keydown', handleEscKey);
     }
-
     return () => {
       document.removeEventListener('keydown', handleEscKey);
     };
-  }, [expandedIndex]);
+  }, [expandedIndex, desktopMode]);
 
   return (
     <section id="about" className="relative">
@@ -63,27 +90,28 @@ const About = () => {
               {sections.map((section, index) => {
                 const isLeftColumn = index % 2 === 0;
                 const rowIndex = Math.floor(index / 2);
-
+                const expanded = desktopMode
+                  ? expandedIndex === index
+                  : expandedIndex.includes(index);
                 return (
                   <motion.div
                     key={section.title}
                     initial={false}
                     animate={{
-                      opacity: expandedIndex !== null && expandedIndex !== index ? 0.35 : 1,
-                      filter:
-                        expandedIndex !== null && expandedIndex !== index ? 'blur(1px)' : 'none',
-                      scale: expandedIndex !== null && expandedIndex !== index ? 1 : 1,
+                      opacity: 1,
+                      filter: 'none',
+                      scale: 1,
                     }}
                     transition={{
                       duration: expandedIndex === null ? 0.4 : 0.2,
                       ease: 'easeOut',
                     }}
-                    className={`relative flex h-auto ${expandedIndex === index ? 'z-30' : 'overflow-hidden'}`}
+                    className={`relative flex h-auto ${expanded ? 'z-30' : 'overflow-hidden'}`}
                   >
                     <SectionCard
                       section={section}
                       index={index}
-                      isExpanded={expandedIndex === index}
+                      isExpanded={expanded}
                       onClick={handleCardClick}
                       position={isLeftColumn ? 'left' : 'right'}
                       rowIndex={rowIndex}
