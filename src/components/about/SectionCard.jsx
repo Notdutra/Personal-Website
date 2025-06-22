@@ -80,7 +80,6 @@ const SectionCard = ({
             {section.year && <p className="text-sm font-medium text-teal-300">{section.year}</p>}
           </div>
         </div>
-        {/* Chevron button always in the same top-right position */}
         <button
           onClick={(e) => {
             e.stopPropagation();
