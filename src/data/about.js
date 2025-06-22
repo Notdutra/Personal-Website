@@ -2,6 +2,7 @@ export const sections = [
   {
     icon: 'book',
     title: 'Education',
+    year: 'Feb 2019 - Jan 2022',
     content:
       'Software Engineering at PUCRS in Brazil, focusing on discrete mathematics, algorithms, and computational theory.',
     details:
@@ -11,7 +12,7 @@ export const sections = [
   {
     icon: 'briefcase',
     title: 'Dell Technologies',
-    year: '2020-2021',
+    year: 'Jun 2020 - Jun 2021',
     content:
       'Worked with C#, .NET, Dart, Flutter, and Python on automation tools and enterprise applications.',
     details: 'Later joined a Salesforce team, working with Apex on internal business solutions.',
@@ -20,7 +21,7 @@ export const sections = [
   {
     icon: 'code',
     title: 'Panvel',
-    year: '2022-2023',
+    year: 'Apr 2022 - Apr 2023',
     content:
       'Contributed to an online marketplace with Java and Spring Boot, developing RESTful APIs.',
     details:
