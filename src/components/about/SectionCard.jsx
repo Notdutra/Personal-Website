@@ -79,6 +79,23 @@ const SectionCard = ({
             <h2 className="mb-1 text-xl font-bold text-white">{section.title}</h2>
             {section.year && <p className="text-sm font-medium text-teal-300">{section.year}</p>}
           </div>
+
+          {isExpanded ? (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onClick(null);
+              }}
+              className="rounded-full p-2 transition-colors"
+              aria-label="Close details"
+            >
+              <FiChevronDown className="rotate-180 text-teal-400" size={20} />
+            </button>
+          ) : (
+            <span className="text-teal-400">
+              <FiChevronDown size={20} />
+            </span>
+          )}
         </div>
         {/* Chevron button always in the same top-right position */}
         <button
