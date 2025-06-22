@@ -8,11 +8,40 @@ const Contact = () => {
     subject: '',
     message: '',
   });
+  const [status, setStatus] = useState(null); // success or error message
+  const [isSubmitting, setIsSubmitting] = useState(false); // loading state
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    setStatus(null);
+    setIsSubmitting(true);
+    const data = {
+      access_key: 'a2a2c712-9eea-44fd-97c5-28f2cbf0abe6',
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    };
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setStatus('Your message has been sent!');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      setStatus('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -64,6 +93,7 @@ const Contact = () => {
                   onChange={handleChange}
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
@@ -78,6 +108,7 @@ const Contact = () => {
                   onChange={handleChange}
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
@@ -92,6 +123,7 @@ const Contact = () => {
                   onChange={handleChange}
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
@@ -106,15 +138,23 @@ const Contact = () => {
                   rows="5"
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
                   required
+                  disabled={isSubmitting}
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full rounded-lg bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-3 font-medium text-white shadow-md transition-all duration-300 hover:from-teal-600 hover:to-blue-600 hover:shadow-lg sm:px-8 sm:py-4"
+                className={`w-full rounded-lg bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-3 font-medium text-white shadow-md transition-all duration-300 hover:from-teal-600 hover:to-blue-600 hover:shadow-lg sm:py-4 sm:px-8 ${isSubmitting ? 'cursor-not-allowed opacity-60' : ''}`}
+                disabled={isSubmitting}
               >
-                Send Message
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="size-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
+                    Sending...
+                  </span>
+                ) : 'Send Message'}
               </button>
             </form>
+            {status && <div className="mt-4 text-center text-sm text-teal-400">{status}</div>}
           </motion.div>
         </div>
       </div>
