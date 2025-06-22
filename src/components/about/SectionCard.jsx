@@ -23,9 +23,8 @@ const SectionCard = ({
   return (
     <motion.div
       layout={false}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ y: 24 }}
       animate={{
-        opacity: 1,
         y: 0,
         transition: {
           duration: 0.4,
@@ -38,25 +37,31 @@ const SectionCard = ({
         duration: 0.25,
       }}
       style={{
-        position: isExpanded ? 'absolute' : 'relative',
-        zIndex: isExpanded ? 50 : 'auto',
-        width: isExpanded ? '200%' : '100%',
-        left: isExpanded ? (isLeftColumn ? '0' : 'auto') : undefined,
-        right: isExpanded && !isLeftColumn ? '0' : undefined,
-        top: isExpanded ? (isTopRow ? '0' : 'auto') : undefined,
-        bottom: isExpanded && !isTopRow ? '0' : undefined,
+        ...(isExpanded && typeof window !== 'undefined' && window.innerWidth >= 768
+          ? {
+              position: 'absolute',
+              zIndex: 50,
+              width: '200%',
+              left: isLeftColumn ? '0' : 'auto',
+              right: !isLeftColumn ? '0' : undefined,
+              top: isTopRow ? '0' : 'auto',
+              bottom: !isTopRow ? '0' : undefined,
+            }
+          : {
+              position: 'relative',
+              zIndex: 'auto',
+              width: '100%',
+            }),
+        minHeight: isExpanded ? '138px' : '180px',
         transformOrigin: isExpanded
           ? `${isTopRow ? 'top' : 'bottom'} ${isLeftColumn ? 'left' : 'right'}`
           : 'top left',
-        willChange: 'transform, opacity',
-        backfaceVisibility: 'hidden',
-        minHeight: isExpanded ? '138px' : '180px',
       }}
-      className={`flex grow flex-col rounded-3xl border backdrop-blur-lg${
+      className={`flex grow flex-col rounded-3xl border ${
         isExpanded
-          ? 'border-teal-400/40 bg-gradient-to-br from-[#1e2332]/95 to-[#151922]/95 p-8 shadow-xl shadow-black/30'
-          : 'h-auto cursor-pointer border-white/10 bg-white/5 p-6 transition-transform hover:scale-[1.03] hover:border-teal-400/40 hover:shadow-teal-900/30 md:p-8'
-      }`}
+          ? 'border-teal-400/40 bg-gradient-to-br from-[#1e2332]/95 to-[#151922]/95 p-6 shadow-xl shadow-black/30'
+          : 'h-auto cursor-pointer border-white/10 bg-white/5 p-6 transition-transform hover:scale-[1.03] hover:border-teal-400/40 hover:shadow-teal-900/30'
+      } w-full`}
       onClick={() => !isExpanded && onClick(index)}
       tabIndex={0}
       aria-label={`${isExpanded ? 'Details for' : 'Open details for'} ${section.title}`}
@@ -65,16 +70,14 @@ const SectionCard = ({
       }}
     >
       {/* Card Header */}
-      <div className="flex h-auto flex-col gap-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-start gap-4">
-            <span className="flex items-center justify-center rounded-xl bg-teal-500/15 p-3 shadow-inner">
-              {iconComponents[section.icon] || <FiCode size={28} className="text-teal-400" />}
-            </span>
-            <div className="flex flex-col">
-              <h2 className="mb-1 text-xl font-bold text-white">{section.title}</h2>
-              {section.year && <p className="text-sm font-medium text-teal-300">{section.year}</p>}
-            </div>
+      <div className="relative flex h-auto flex-col gap-4">
+        <div className="flex items-start gap-4">
+          <span className="flex items-center justify-center rounded-xl bg-teal-500/15 p-3 shadow-inner">
+            {iconComponents[section.icon] || <FiCode size={28} className="text-teal-400" />}
+          </span>
+          <div className="flex flex-col">
+            <h2 className="mb-1 text-xl font-bold text-white">{section.title}</h2>
+            {section.year && <p className="text-sm font-medium text-teal-300">{section.year}</p>}
           </div>
 
           {isExpanded ? (
@@ -94,14 +97,27 @@ const SectionCard = ({
             </span>
           )}
         </div>
-        <p className="leading-relaxed text-gray-200">{section.content}</p>
+        {/* Chevron button always in the same top-right position */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (isExpanded) {
+              onClick(null);
+            } else {
+              onClick(index);
+            }
+          }}
+          className="absolute right-0 top-0 rounded-full p-2 transition-colors"
+          aria-label={isExpanded ? 'Close details' : `Open details for ${section.title}`}
+        >
+          <FiChevronDown className={`${isExpanded ? 'rotate-180' : ''} text-teal-400`} size={20} />
+        </button>
       </div>
-      
+      <p className="leading-relaxed text-gray-200">{section.content}</p>
+
       {isExpanded && (
         <motion.div
           key="expanded-content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
           transition={{ duration: 0.15, ease: 'easeOut' }}
           className="mt-8"
         >
