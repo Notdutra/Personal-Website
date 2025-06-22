@@ -1,31 +1,64 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SectionCard from '../components/about/SectionCard';
 import { sections } from '../data/about';
 
+const isDesktop = () => typeof window !== 'undefined' && window.innerWidth >= 768;
+
 const About = () => {
-  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState(isDesktop() ? null : []);
+  const [desktopMode, setDesktopMode] = useState(isDesktop());
+
+  useEffect(() => {
+    const handleResize = () => {
+      const desktop = isDesktop();
+      setDesktopMode(desktop);
+      setExpandedIndex((prev) => {
+        if (desktop) {
+          if (Array.isArray(prev)) return prev.length > 0 ? prev[0] : null;
+          return prev;
+        } else {
+          return prev === null ? [] : Array.isArray(prev) ? prev : [prev];
+        }
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleCardClick = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+    if (desktopMode) {
+      setExpandedIndex((prev) => (prev === index ? null : index));
+    } else {
+      setExpandedIndex((prev) => {
+        if (prev.includes(index)) {
+          return prev.filter((i) => i !== index);
+        } else {
+          return [...prev, index];
+        }
+      });
+    }
   };
 
-  return (
-    <section id="about">
-      {/* Add overlay when card is expanded */}
-      <AnimatePresence>
-        {expandedIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm"
-            onClick={() => setExpandedIndex(null)}
-          />
-        )}
-      </AnimatePresence>
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (
+        event.key === 'Escape' &&
+        ((desktopMode && expandedIndex !== null) || (!desktopMode && expandedIndex.length > 0))
+      ) {
+        setExpandedIndex(desktopMode ? null : []);
+      }
+    };
+    if ((desktopMode && expandedIndex !== null) || (!desktopMode && expandedIndex.length > 0)) {
+      document.addEventListener('keydown', handleEscKey);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [expandedIndex, desktopMode]);
 
+  return (
+    <section id="about" className="relative">
       <div className="flexColumn">
         <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
           <motion.h1
@@ -50,29 +83,45 @@ const About = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8"
+          className="relative mx-auto mt-4 w-full max-w-5xl overflow-visible md:mt-8"
         >
-          <AnimatePresence>
-            {sections.map((section, index) => (
-              <motion.div
-                key={section.title}
-                layout
-                animate={{
-                  scale: expandedIndex !== null && expandedIndex !== index ? 0.8 : 1,
-                  opacity: expandedIndex !== null && expandedIndex !== index ? 0 : 1,
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                <SectionCard
-                  section={section}
-                  index={index}
-                  isExpanded={expandedIndex === index}
-                  onClick={handleCardClick}
-                  totalCards={sections.length}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
+          <div className="relative grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
+            <AnimatePresence initial={false} mode="sync">
+              {sections.map((section, index) => {
+                const isLeftColumn = index % 2 === 0;
+                const rowIndex = Math.floor(index / 2);
+                const expanded = desktopMode
+                  ? expandedIndex === index
+                  : expandedIndex.includes(index);
+                return (
+                  <motion.div
+                    key={section.title}
+                    initial={false}
+                    animate={{
+                      opacity: 1,
+                      filter: 'none',
+                      scale: 1,
+                    }}
+                    transition={{
+                      duration: expandedIndex === null ? 0.4 : 0.2,
+                      ease: 'easeOut',
+                    }}
+                    className={`relative flex h-auto ${expanded ? 'z-30' : 'overflow-hidden'}`}
+                  >
+                    <SectionCard
+                      section={section}
+                      index={index}
+                      isExpanded={expanded}
+                      onClick={handleCardClick}
+                      position={isLeftColumn ? 'left' : 'right'}
+                      rowIndex={rowIndex}
+                      isLeftColumn={isLeftColumn}
+                    />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
         </motion.div>
       </div>
     </section>
