@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,12 +8,71 @@ const Contact = () => {
     subject: '',
     message: '',
   });
-  const [status, setStatus] = useState(null); // success or error message
-  const [isSubmitting, setIsSubmitting] = useState(false); // loading state
+  const [status, setStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    subject: false,
+    message: false,
+  });
+  const [showToast, setShowToast] = useState(false);
+
+  const getFieldError = (field) => {
+    const value = formData[field];
+    if (field === 'name') {
+      if (!value.trim() || value.trim().length < 2)
+        return 'Please enter your name (at least 2 characters).';
+    }
+    if (field === 'subject') {
+      const trimmed = value.trim();
+      if (!trimmed) return 'Please enter a subject (at least 5 characters).';
+      if (trimmed.length < 5)
+        return `Subject is too short (${5 - trimmed.length} more character${5 - trimmed.length === 1 ? '' : 's'} needed).`;
+    }
+    if (field === 'message') {
+      const trimmed = value.trim();
+      if (!trimmed) return 'Please enter a message (at least 30 characters).';
+      if (trimmed.length < 30)
+        return `Message is too short (${30 - trimmed.length} more character${30 - trimmed.length === 1 ? '' : 's'} needed).`;
+    }
+    if (field === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(value.trim())) return 'Please enter a valid email address.';
+    }
+    return '';
+  };
+
+  const handleBlur = (e) => {
+    setTouched({ ...touched, [e.target.name]: true });
+  };
+
+  const validateForm = () => {
+    if (!formData.name.trim() || formData.name.trim().length < 2) {
+      setStatus('Please enter your name (at least 2 characters).');
+      return false;
+    }
+    if (!formData.subject.trim() || formData.subject.trim().length < 3) {
+      setStatus('Please enter a subject (at least 3 characters).');
+      return false;
+    }
+    if (!formData.message.trim() || formData.message.trim().length < 30) {
+      setStatus('Please enter a message (at least 30 characters).');
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setStatus('Please enter a valid email address.');
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus(null);
+    setTouched({ name: true, email: true, subject: true, message: true });
+    if (!validateForm()) return;
     setIsSubmitting(true);
     const data = {
       access_key: 'a2a2c712-9eea-44fd-97c5-28f2cbf0abe6',
@@ -32,8 +91,9 @@ const Contact = () => {
       });
       const result = await response.json();
       if (result.success) {
-        setStatus('Your message has been sent!');
+        setShowToast(true);
         setFormData({ name: '', email: '', subject: '', message: '' });
+        setTouched({ name: false, email: false, subject: false, message: false });
       } else {
         setStatus('Something went wrong. Please try again.');
       }
@@ -43,6 +103,13 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
 
   const handleChange = (e) => {
     setFormData({
@@ -91,25 +158,31 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
-                  required
                   disabled={isSubmitting}
                 />
+                {touched.name && getFieldError('name') && (
+                  <div className="mt-1 text-sm text-teal-400">{getFieldError('name')}</div>
+                )}
               </div>
               <div>
                 <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-200">
                   Email
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
-                  required
                   disabled={isSubmitting}
                 />
+                {touched.email && getFieldError('email') && (
+                  <div className="mt-1 text-sm text-teal-400">{getFieldError('email')}</div>
+                )}
               </div>
               <div>
                 <label htmlFor="subject" className="mb-2 block text-sm font-medium text-gray-200">
@@ -121,10 +194,13 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
-                  required
                   disabled={isSubmitting}
                 />
+                {touched.subject && getFieldError('subject') && (
+                  <div className="mt-1 text-sm text-teal-400">{getFieldError('subject')}</div>
+                )}
               </div>
               <div>
                 <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-200">
@@ -135,28 +211,64 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   rows="5"
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
-                  required
                   disabled={isSubmitting}
                 ></textarea>
+                {touched.message && getFieldError('message') && (
+                  <div className="mt-1 text-sm text-teal-400">{getFieldError('message')}</div>
+                )}
               </div>
               <button
                 type="submit"
-                className={`w-full rounded-lg bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-3 font-medium text-white shadow-md transition-all duration-300 hover:from-teal-600 hover:to-blue-600 hover:shadow-lg sm:py-4 sm:px-8 ${isSubmitting ? 'cursor-not-allowed opacity-60' : ''}`}
+                className={`w-full rounded-lg bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-3 font-medium text-white shadow-md transition-all duration-300 hover:from-teal-600 hover:to-blue-600 hover:shadow-lg sm:px-8 sm:py-4 ${isSubmitting ? 'cursor-not-allowed opacity-60' : ''}`}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
-                    <svg className="size-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
+                    <svg
+                      className="size-5 animate-spin text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      ></path>
+                    </svg>
                     Sending...
                   </span>
-                ) : 'Send Message'}
+                ) : (
+                  'Send Message'
+                )}
               </button>
             </form>
-            {status && <div className="mt-4 text-center text-sm text-teal-400">{status}</div>}
           </motion.div>
         </div>
+        <AnimatePresence>
+          {showToast && (
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.5 }}
+              className="fixed inset-x-0 bottom-10 z-50 mx-auto w-fit rounded-lg bg-teal-600 px-6 py-3 text-white shadow-lg"
+            >
+              Message sent successfully!
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
