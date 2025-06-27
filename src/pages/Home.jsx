@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import profilePic from '../assets/profile-picture.jpeg';
+import profilePic from '../assets/profile-picture.webp';
 import FadeIn from '../components/FadeIn';
 import SlideIn from '../components/SlideIn';
 import { FiGithub, FiLinkedin } from 'react-icons/fi';
