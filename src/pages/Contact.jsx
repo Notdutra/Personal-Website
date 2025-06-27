@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -97,7 +99,7 @@ const Contact = () => {
       } else {
         setStatus('Something went wrong. Please try again.');
       }
-    } catch (error) {
+    } catch {
       setStatus('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);

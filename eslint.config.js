@@ -1,49 +1,25 @@
-import reactPlugin from 'eslint-plugin-react';
-import tailwindcssPlugin from 'eslint-plugin-tailwindcss';
-import prettierConfig from 'eslint-config-prettier';
-import globals from 'globals';
-import babelParser from '@babel/eslint-parser';
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-export default [
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+});
+
+const eslintConfig = [
+  ...compat.extends('next/core-web-vitals'),
   {
-    files: ['src/**/*.{js,jsx}', 'src/**/*.js', 'src/**/*.jsx'],
-    languageOptions: {
-      parser: babelParser,
-      parserOptions: {
-        requireConfigFile: false,
-        babelOptions: {
-          presets: ['@babel/preset-react'],
-        },
-        ecmaVersion: 2022,
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-      globals: globals.browser,
-    },
-    plugins: {
-      react: reactPlugin,
-      tailwindcss: tailwindcssPlugin,
-    },
     rules: {
-      semi: 'error',
-      'prefer-const': 'error',
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
-      ...tailwindcssPlugin.configs.recommended.rules,
+      // Disable strict unused variable checking for development
+      'no-unused-vars': 'off',
+      '@next/next/no-img-element': 'off', // Allow img tags
     },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-    linterOptions: {
-      reportUnusedDisableDirectives: true,
-    },
-  },
-  ...[prettierConfig],
-  {
-    ignores: ['node_modules/**', 'dist/**', 'build/**', '.git/**', '.vite/**'],
   },
 ];
+
+export default eslintConfig;

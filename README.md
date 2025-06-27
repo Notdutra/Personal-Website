@@ -1,12 +1,12 @@
 # Personal Website
 
-A modern web app built with **Vite**, **React**, and **Tailwind CSS**.
+A modern web app built with **Next.js**, **React**, and **Tailwind CSS**.
 
 ## 🚀 Features
 
-- Fast development with Vite
+- Fast development with Next.js
 - Styled with Tailwind CSS
-- React Router for navigation
+- Client-side navigation with smooth scrolling
 - Framer Motion for animations
 - Deployed on Vercel
 

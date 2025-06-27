@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useMemo } from 'react';
 import { projects } from '../data/projects';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -56,7 +58,7 @@ const Projects = () => {
   }
   return (
     <section id="projects">
-      <div id="flexColumn">
+      <div className="flexColumn">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

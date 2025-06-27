@@ -1,3 +1,5 @@
+'use client';
+
 import { FiCheckCircle } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 

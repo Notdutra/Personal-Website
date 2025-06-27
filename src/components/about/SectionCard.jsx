@@ -1,3 +1,5 @@
+'use client';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiBook, FiBriefcase, FiCode, FiChevronDown } from 'react-icons/fi';
 
