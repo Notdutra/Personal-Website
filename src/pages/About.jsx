@@ -5,15 +5,23 @@ import { useState, useEffect } from 'react';
 import SectionCard from '../components/about/SectionCard';
 import { sections } from '../data/about';
 
-const isDesktop = () => typeof window !== 'undefined' && window.innerWidth >= 768;
-
 const About = () => {
-  const [expandedIndex, setExpandedIndex] = useState(isDesktop() ? null : []);
-  const [desktopMode, setDesktopMode] = useState(isDesktop());
+  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [desktopMode, setDesktopMode] = useState(true); // Default to desktop
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Set client-side flag
+    setIsClient(true);
+
+    // Check if desktop and set initial state
+    const checkDesktop = () => window.innerWidth >= 768;
+    const desktop = checkDesktop();
+    setDesktopMode(desktop);
+    setExpandedIndex(desktop ? null : []);
+
     const handleResize = () => {
-      const desktop = isDesktop();
+      const desktop = checkDesktop();
       setDesktopMode(desktop);
       setExpandedIndex((prev) => {
         if (desktop) {
@@ -24,9 +32,26 @@ const About = () => {
         }
       });
     };
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Don't render interactive content until client-side
+  if (!isClient) {
+    return (
+      <section id="about" className="relative">
+        <div className="flexColumn">
+          <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
+            <h1 className="heading-primary">About Me</h1>
+            <p className="text-lg leading-relaxed text-gray-300 md:text-xl">
+              My journey from software engineering student to full-stack developer
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const handleCardClick = (index) => {
     if (desktopMode) {

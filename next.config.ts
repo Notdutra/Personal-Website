@@ -11,7 +11,12 @@ const nextConfig: NextConfig = {
 
   // Image optimizations
   images: {
-    domains: ['notdutra.dev'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'notdutra.dev',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
@@ -30,13 +35,57 @@ const nextConfig: NextConfig = {
     scrollRestoration: true,
   },
 
-  // Webpack optimizations
+  // Turbopack configuration (for development)
+  turbopack: {
+    resolveExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+    resolveAlias: {
+      // Optimize common imports
+      '@': './src',
+      '@/components': './src/components',
+      '@/pages': './src/pages',
+      '@/data': './src/data',
+      '@/styles': './src/styles',
+    },
+  },
+
+  // Webpack optimizations (for production builds)
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
       // Tree shake unused code more aggressively
       config.optimization.usedExports = true;
       config.optimization.sideEffects = false;
+      
+      // Additional optimizations for production
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            priority: -10,
+            chunks: 'all',
+          },
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: 'react',
+            priority: 20,
+            chunks: 'all',
+          },
+        },
+      };
     }
+    
+    // SVG handling for both dev and production
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    
     return config;
   },
 

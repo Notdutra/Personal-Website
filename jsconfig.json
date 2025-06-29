@@ -2,7 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/data/*": ["src/data/*"],
+      "@/styles/*": ["src/styles/*"]
     },
     "jsx": "react",
     "checkJs": false,

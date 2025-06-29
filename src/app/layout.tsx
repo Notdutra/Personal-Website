@@ -33,11 +33,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  },
-  manifest: '/manifest.json',
+  // manifest: '/manifest.json', // Temporarily disabled
   openGraph: {
     title: 'Arthur Dutra | Software Developer',
     description: 'Software Developer & Tech Enthusiast building modern web applications',
