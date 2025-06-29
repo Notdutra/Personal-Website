@@ -140,12 +140,27 @@ const Navbar = () => {
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  // Add theme color monitoring
+  // Add theme color monitoring with debug info in production
   useEffect(() => {
+    function logThemeColor(message, color) {
+      // Create a visible debug element if it doesn't exist
+      if (!document.getElementById('theme-debug')) {
+        const debugEl = document.createElement('div');
+        debugEl.id = 'theme-debug';
+        debugEl.style.cssText =
+          'position:fixed;bottom:0;right:0;background:rgba(0,0,0,0.8);color:white;padding:8px;font-size:12px;z-index:9999;max-width:300px;word-break:break-all;';
+        document.body.appendChild(debugEl);
+      }
+      const debugEl = document.getElementById('theme-debug');
+      debugEl.textContent = `${message}: ${color}`;
+      console.debug(`[Theme Debug] ${message}: ${color}`);
+    }
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.target.getAttribute('name') === 'theme-color') {
-          console.log('Theme color changed to:', mutation.target.getAttribute('content'));
+          const color = mutation.target.getAttribute('content');
+          logThemeColor('Theme color changed to', color);
         }
       });
     });
@@ -154,10 +169,16 @@ const Navbar = () => {
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
       observer.observe(metaThemeColor, { attributes: true });
-      console.log('Initial theme color:', metaThemeColor.getAttribute('content'));
+      logThemeColor('Initial theme color', metaThemeColor.getAttribute('content'));
+    } else {
+      logThemeColor('No theme-color meta tag found', 'N/A');
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      const debugEl = document.getElementById('theme-debug');
+      if (debugEl) debugEl.remove();
+    };
   }, []);
 
   return (
