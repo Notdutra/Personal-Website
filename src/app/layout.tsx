@@ -1,7 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import React from 'react';
 import '../styles/global.css';
 import Navbar from '../components/Navbar';
+
+export const viewport: Viewport = {
+  themeColor: '#1a1f2b',
+};
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +37,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  // manifest: '/manifest.json', // Temporarily disabled
+  manifest: '/manifest.json',
   openGraph: {
     title: 'Arthur Dutra | Software Developer',
     description: 'Software Developer & Tech Enthusiast building modern web applications',
@@ -63,9 +67,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="theme-color" content="#34d399" />
-      </head>
       <body className="min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white">
         <Navbar />
         <div id="root">{children}</div>

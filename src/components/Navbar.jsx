@@ -70,11 +70,19 @@ const Navbar = () => {
     window.addEventListener('hashchange', setSectionFromHash);
     return () => window.removeEventListener('hashchange', setSectionFromHash);
   }, []);
-
   const scrollToSection = useCallback(
     (e, sectionId) => {
       e.preventDefault();
       e.stopPropagation();
+
+      // Log current theme color on navigation
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (metaThemeColor) {
+        console.log(
+          `Navigation to #${sectionId}, theme-color:`,
+          metaThemeColor.getAttribute('content'),
+        );
+      }
 
       // Close mobile menu
       if (isOpen) {
@@ -84,12 +92,19 @@ const Navbar = () => {
       // Lock scroll updates temporarily
       scrollLockRef.current = true;
 
-      // Update URL hash first
-      history.pushState(null, '', `#${sectionId}`);
+      // Update URL hash first to trigger LazyComponent loading
+      const oldHash = window.location.hash;
+      window.location.hash = `#${sectionId}`;
+
+      // Trigger hashchange event if hash didn't actually change
+      if (oldHash === `#${sectionId}`) {
+        window.dispatchEvent(new HashChangeEvent('hashchange'));
+      }
+
       setActiveSection(sectionId);
 
       // Function to attempt scrolling to section
-      const attemptScroll = (retries = 5) => {
+      const attemptScroll = (retries = 10) => {
         const section = document.getElementById(sectionId);
         if (section) {
           try {
@@ -108,22 +123,42 @@ const Navbar = () => {
           }
         } else if (retries > 0) {
           // Section not found, retry after a short delay (for lazy loading)
-          setTimeout(() => attemptScroll(retries - 1), 200);
+          setTimeout(() => attemptScroll(retries - 1), 100);
         } else {
           // Failed to find section after retries
-          console.warn(`Section ${sectionId} not found`);
+          console.warn(`Section ${sectionId} not found after retries`);
           scrollLockRef.current = false;
         }
       };
 
-      // Wait for mobile menu to close if needed
-      const delay = isOpen ? 500 : 10;
+      // Wait for mobile menu to close if needed, then start attempting to scroll
+      const delay = isOpen ? 500 : 50;
       setTimeout(attemptScroll, delay);
     },
     [isOpen],
   );
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  // Add theme color monitoring
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.target.getAttribute('name') === 'theme-color') {
+          console.log('Theme color changed to:', mutation.target.getAttribute('content'));
+        }
+      });
+    });
+
+    // Start observing the head for theme-color meta tag changes
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      observer.observe(metaThemeColor, { attributes: true });
+      console.log('Initial theme color:', metaThemeColor.getAttribute('content'));
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <nav className="fixed top-0 z-50 w-full backdrop-blur-sm">

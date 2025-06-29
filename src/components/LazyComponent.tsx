@@ -6,7 +6,7 @@ interface LazyComponentProps {
   children: React.ReactNode;
   className?: string;
   threshold?: number;
-  sectionId?: string; // Add section ID for navigation support
+  sectionId?: string;
 }
 
 export default function LazyComponent({
@@ -18,6 +18,7 @@ export default function LazyComponent({
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isVisibleRef = useRef(false);
+  const hasNavigationOccurred = useRef(false);
 
   // Update ref when state changes
   useEffect(() => {
@@ -42,20 +43,46 @@ export default function LazyComponent({
     return () => observer.disconnect();
   }, [threshold]);
 
-  // Force load component if someone tries to navigate to it
+  // Force load component if someone tries to navigate to it or on first navigation
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
+
+      // If this is the first navigation attempt, load ALL sections
+      if (!hasNavigationOccurred.current && hash) {
+        hasNavigationOccurred.current = true;
+        // Force load this component and trigger loading of others
+        setIsVisible(true);
+
+        // Dispatch a custom event to tell other LazyComponents to load
+        window.dispatchEvent(new CustomEvent('forceLoadAllSections'));
+        return;
+      }
+
+      // Normal hash-based loading
       if (sectionId && hash === sectionId && !isVisibleRef.current) {
+        console.log(`LazyComponent: Force loading section ${sectionId}`);
         setIsVisible(true);
       }
     };
 
-    // Check initial hash
+    const handleForceLoadAll = () => {
+      setIsVisible(true);
+    };
+
+    // Check initial hash immediately
     handleHashChange();
 
+    // Listen for various navigation events
     window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleHashChange);
+    window.addEventListener('forceLoadAllSections', handleForceLoadAll);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleHashChange);
+      window.removeEventListener('forceLoadAllSections', handleForceLoadAll);
+    };
   }, [sectionId]);
 
   return (

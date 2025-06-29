@@ -97,14 +97,15 @@ const Home = () => {
                 duration={1}
                 className="absolute inset-0 rounded-full bg-teal-500/10 bg-gradient-to-r from-teal-500/20 to-blue-500/20 blur-3xl"
               />
-              <div className="relative size-full overflow-hidden rounded-full">
+              <div>
                 <Image
                   src="/images/profile.webp"
                   alt="Arthur Schossler Dutra"
-                  fill
+                  width={400}
+                  height={400}
                   priority
                   sizes="(max-width: 768px) 200px, (max-width: 1024px) 300px, 400px"
-                  className="object-cover shadow-xl"
+                  className="relative size-full overflow-hidden rounded-full shadow-xl"
                 />
               </div>
             </div>

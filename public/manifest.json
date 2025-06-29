@@ -1,9 +1,8 @@
 {
-    "name": "Arthur Dutra - Software Developer",
-    "short_name": "Arthur Dutra",
-    "description": "Software Developer & Tech Enthusiast",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#1a1f2b",
-    "theme_color": "#34d399"
+  "name": "Arthur Dutra - Software Developer",
+  "short_name": "Arthur Dutra",
+  "description": "Software Developer & Tech Enthusiast",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1f2b"
 }
