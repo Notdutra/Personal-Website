@@ -140,7 +140,7 @@ const Navbar = () => {
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  // Add theme color monitoring with debug info in production
+  // Add theme color monitoring and force override
   useEffect(() => {
     function logThemeColor(message, color) {
       // Create a visible debug element if it doesn't exist
@@ -156,11 +156,23 @@ const Navbar = () => {
       console.debug(`[Theme Debug] ${message}: ${color}`);
     }
 
+    // Force theme color to stay consistent
+    function forceThemeColor() {
+      const targetColor = '#1a1f2b';
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (metaThemeColor && metaThemeColor.getAttribute('content') !== targetColor) {
+        metaThemeColor.setAttribute('content', targetColor);
+        logThemeColor('Forced theme color reset to', targetColor);
+      }
+    }
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.target.getAttribute('name') === 'theme-color') {
           const color = mutation.target.getAttribute('content');
-          logThemeColor('Theme color changed to', color);
+          logThemeColor('Theme color detected change to', color);
+          // Override any automatic changes
+          setTimeout(forceThemeColor, 10);
         }
       });
     });
@@ -170,12 +182,19 @@ const Navbar = () => {
     if (metaThemeColor) {
       observer.observe(metaThemeColor, { attributes: true });
       logThemeColor('Initial theme color', metaThemeColor.getAttribute('content'));
+      forceThemeColor(); // Ensure it starts with our color
     } else {
       logThemeColor('No theme-color meta tag found', 'N/A');
     }
 
+    // Also force theme color periodically and on scroll
+    const forceInterval = setInterval(forceThemeColor, 1000);
+    window.addEventListener('scroll', forceThemeColor, { passive: true });
+
     return () => {
       observer.disconnect();
+      clearInterval(forceInterval);
+      window.removeEventListener('scroll', forceThemeColor);
       const debugEl = document.getElementById('theme-debug');
       if (debugEl) debugEl.remove();
     };

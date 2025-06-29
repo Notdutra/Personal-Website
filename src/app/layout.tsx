@@ -5,8 +5,12 @@ import Navbar from '../components/Navbar';
 
 export const viewport: Viewport = {
   themeColor: '#1a1f2b',
+  width: 'device-width',
+  initialScale: 1,
+  colorScheme: 'dark',
 };
 
+// Force disable automatic theme color detection
 export const metadata: Metadata = {
   title: {
     default: 'Arthur Dutra | Software Developer',
@@ -62,11 +66,22 @@ export const metadata: Metadata = {
   verification: {
     google: 'your-google-site-verification-code', // Add your actual verification code
   },
+  other: {
+    'theme-color': '#1a1f2b',
+    'msapplication-navbutton-color': '#1a1f2b',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="theme-color" content="#1a1f2b" />
+        <meta name="msapplication-navbutton-color" content="#1a1f2b" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="color-scheme" content="dark" />
+      </head>
       <body className="min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white">
         <Navbar />
         <div id="root">{children}</div>
