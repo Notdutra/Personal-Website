@@ -17,6 +17,12 @@ export default function LazyComponent({
 }: LazyComponentProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const isVisibleRef = useRef(false);
+
+  // Update ref when state changes
+  useEffect(() => {
+    isVisibleRef.current = isVisible;
+  }, [isVisible]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,7 +46,7 @@ export default function LazyComponent({
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (sectionId && hash === sectionId && !isVisible) {
+      if (sectionId && hash === sectionId && !isVisibleRef.current) {
         setIsVisible(true);
       }
     };
@@ -50,7 +56,7 @@ export default function LazyComponent({
 
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [sectionId, isVisible]);
+  }, [sectionId]);
 
   return (
     <div ref={ref} className={className}>

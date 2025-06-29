@@ -37,6 +37,24 @@ const About = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        if (desktopMode && expandedIndex !== null) {
+          setExpandedIndex(null);
+        } else if (!desktopMode && expandedIndex.length > 0) {
+          setExpandedIndex([]);
+        }
+      }
+    };
+
+    // Always add/remove listener, but only act when there's something expanded
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [expandedIndex, desktopMode]);
+
   // Don't render interactive content until client-side
   if (!isClient) {
     return (
@@ -66,24 +84,6 @@ const About = () => {
       });
     }
   };
-
-  useEffect(() => {
-    const handleEscKey = (event) => {
-      if (event.key === 'Escape') {
-        if (desktopMode && expandedIndex !== null) {
-          setExpandedIndex(null);
-        } else if (!desktopMode && expandedIndex.length > 0) {
-          setExpandedIndex([]);
-        }
-      }
-    };
-
-    // Always add/remove listener, but only act when there's something expanded
-    document.addEventListener('keydown', handleEscKey);
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-    };
-  }, [expandedIndex, desktopMode]);
 
   return (
     <section id="about" className="relative">
