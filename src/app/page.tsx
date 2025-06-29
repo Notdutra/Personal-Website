@@ -37,16 +37,16 @@ export default function HomePage() {
   return (
     <>
       <Home />
-      <LazyComponent>
+      <LazyComponent sectionId="about">
         <About />
       </LazyComponent>
-      <LazyComponent>
+      <LazyComponent sectionId="skills">
         <Skills />
       </LazyComponent>
-      <LazyComponent>
+      <LazyComponent sectionId="projects">
         <Projects />
       </LazyComponent>
-      <LazyComponent>
+      <LazyComponent sectionId="contact">
         <Contact />
       </LazyComponent>
     </>

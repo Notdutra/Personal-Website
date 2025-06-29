@@ -84,35 +84,41 @@ const Navbar = () => {
       // Lock scroll updates temporarily
       scrollLockRef.current = true;
 
-      // Find the section
-      const section = document.getElementById(sectionId);
-      if (!section) {
-        scrollLockRef.current = false;
-        return;
-      }
+      // Update URL hash first
+      history.pushState(null, '', `#${sectionId}`);
+      setActiveSection(sectionId);
 
-      // Wait for mobile menu to close
-      const delay = isOpen ? 500 : 10;
+      // Function to attempt scrolling to section
+      const attemptScroll = (retries = 5) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          try {
+            const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+              top: sectionTop,
+              behavior: 'smooth',
+            });
 
-      setTimeout(() => {
-        try {
-          const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-
-          window.scrollTo({
-            top: sectionTop,
-            behavior: 'smooth',
-          });
-
-          history.pushState(null, '', `#${sectionId}`);
-          setActiveSection(sectionId);
-        } catch (error) {
-          // Silently handle scroll errors
-        }
-
-        setTimeout(() => {
+            setTimeout(() => {
+              scrollLockRef.current = false;
+            }, 1000);
+          } catch (error) {
+            console.warn('Scroll error:', error);
+            scrollLockRef.current = false;
+          }
+        } else if (retries > 0) {
+          // Section not found, retry after a short delay (for lazy loading)
+          setTimeout(() => attemptScroll(retries - 1), 200);
+        } else {
+          // Failed to find section after retries
+          console.warn(`Section ${sectionId} not found`);
           scrollLockRef.current = false;
-        }, 1000);
-      }, delay);
+        }
+      };
+
+      // Wait for mobile menu to close if needed
+      const delay = isOpen ? 500 : 10;
+      setTimeout(attemptScroll, delay);
     },
     [isOpen],
   );

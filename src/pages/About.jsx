@@ -69,16 +69,17 @@ const About = () => {
 
   useEffect(() => {
     const handleEscKey = (event) => {
-      if (
-        event.key === 'Escape' &&
-        ((desktopMode && expandedIndex !== null) || (!desktopMode && expandedIndex.length > 0))
-      ) {
-        setExpandedIndex(desktopMode ? null : []);
+      if (event.key === 'Escape') {
+        if (desktopMode && expandedIndex !== null) {
+          setExpandedIndex(null);
+        } else if (!desktopMode && expandedIndex.length > 0) {
+          setExpandedIndex([]);
+        }
       }
     };
-    if ((desktopMode && expandedIndex !== null) || (!desktopMode && expandedIndex.length > 0)) {
-      document.addEventListener('keydown', handleEscKey);
-    }
+
+    // Always add/remove listener, but only act when there's something expanded
+    document.addEventListener('keydown', handleEscKey);
     return () => {
       document.removeEventListener('keydown', handleEscKey);
     };

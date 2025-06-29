@@ -54,7 +54,7 @@ const nextConfig: NextConfig = {
       // Tree shake unused code more aggressively
       config.optimization.usedExports = true;
       config.optimization.sideEffects = false;
-      
+
       // Additional optimizations for production
       config.optimization.splitChunks = {
         chunks: 'all',
@@ -79,13 +79,13 @@ const nextConfig: NextConfig = {
         },
       };
     }
-    
+
     // SVG handling for both dev and production
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
-    
+
     return config;
   },
 
