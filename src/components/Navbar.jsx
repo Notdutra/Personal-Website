@@ -72,99 +72,8 @@ const Navbar = () => {
   }, []);
   const scrollToSection = useCallback(
     (e, sectionId) => {
-      console.log('🚀 NAVIGATION CLICK DETECTED - STARTING FULL TRACE');
-      console.log('='.repeat(60));
-
       e.preventDefault();
       e.stopPropagation();
-
-      // CAPTURE EVERYTHING BEFORE NAVIGATION
-      console.log('📋 BEFORE NAVIGATION STATE:');
-      console.log('Target section:', sectionId);
-      console.log('Current URL:', window.location.href);
-      console.log('Current hash:', window.location.hash);
-
-      // Log ALL meta tags
-      const allMetas = Array.from(document.querySelectorAll('meta'));
-      console.log('🏷️ ALL META TAGS:');
-      allMetas.forEach((meta, i) => {
-        const name = meta.getAttribute('name');
-        const property = meta.getAttribute('property');
-        const content = meta.getAttribute('content');
-        if (name || property) {
-          console.log(`  ${i}: ${name || property} = ${content}`);
-        }
-      });
-
-      // Log ALL style elements
-      const allStyles = Array.from(document.querySelectorAll('style'));
-      console.log('🎨 ALL STYLE TAGS:');
-      allStyles.forEach((style, i) => {
-        console.log(`  Style ${i}:`, style.textContent?.substring(0, 100) + '...');
-      });
-
-      // Log computed styles on HTML and BODY
-      const htmlStyles = getComputedStyle(document.documentElement);
-      const bodyStyles = getComputedStyle(document.body);
-      console.log('🌍 COMPUTED STYLES:');
-      console.log('HTML background:', htmlStyles.backgroundColor);
-      console.log('BODY background:', bodyStyles.backgroundColor);
-      console.log('HTML color-scheme:', htmlStyles.colorScheme);
-
-      // SUPER AGGRESSIVE MONITORING - Watch EVERYTHING
-      const observers = [];
-
-      // Watch ALL attribute changes on ALL elements
-      const globalObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'attributes') {
-            console.log('🚨 ATTRIBUTE CHANGED:');
-            console.log('  Element:', mutation.target.tagName);
-            console.log('  Attribute:', mutation.attributeName);
-            console.log('  Old value:', mutation.oldValue);
-            console.log('  New value:', mutation.target.getAttribute(mutation.attributeName));
-            console.log('  Stack:', new Error().stack.split('\n')[2]);
-          }
-        });
-      });
-
-      // Watch for new elements being added
-      const nodeObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1) {
-              // Element node
-              console.log('🆕 NEW ELEMENT ADDED:', node.tagName);
-              if (node.tagName === 'META' || node.tagName === 'STYLE') {
-                console.log('  Content:', node.outerHTML);
-              }
-            }
-          });
-        });
-      });
-
-      // Start observing EVERYTHING
-      globalObserver.observe(document, {
-        attributes: true,
-        attributeOldValue: true,
-        subtree: true,
-        attributeFilter: ['content', 'style', 'class', 'data-theme'],
-      });
-
-      nodeObserver.observe(document.head, {
-        childList: true,
-        subtree: true,
-      });
-
-      observers.push(globalObserver, nodeObserver);
-
-      // Monitor window events
-      const eventTypes = ['hashchange', 'popstate', 'beforeunload', 'pagehide', 'pageshow'];
-      eventTypes.forEach((eventType) => {
-        const handler = (e) => console.log(`🔔 WINDOW EVENT: ${eventType}`, e);
-        window.addEventListener(eventType, handler);
-        observers.push(() => window.removeEventListener(eventType, handler));
-      });
 
       // Close mobile menu
       if (isOpen) {
@@ -176,7 +85,6 @@ const Navbar = () => {
 
       // Update URL hash
       const oldHash = window.location.hash;
-      console.log('🔗 CHANGING HASH:', oldHash, '->', `#${sectionId}`);
       window.location.hash = `#${sectionId}`;
 
       // Trigger hashchange event if hash didn't actually change
@@ -192,7 +100,6 @@ const Navbar = () => {
         if (section) {
           try {
             const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-            console.log('📍 SCROLLING TO:', sectionTop);
 
             window.scrollTo({
               top: sectionTop,
@@ -201,61 +108,16 @@ const Navbar = () => {
 
             setTimeout(() => {
               scrollLockRef.current = false;
-
-              // FINAL STATE CHECK
-              console.log('🏁 FINAL STATE AFTER NAVIGATION:');
-              const finalMetas = Array.from(document.querySelectorAll('meta[name="theme-color"]'));
-              finalMetas.forEach((meta, i) => {
-                console.log(`  Final meta ${i}:`, meta.getAttribute('content'));
-              });
-
-              // CHECK FOR BROWSER COLOR SAMPLING
-              console.log('🎨 CHECKING FOR BROWSER COLOR SAMPLING:');
-              console.log(
-                'Document background:',
-                getComputedStyle(document.documentElement).backgroundColor,
-              );
-              console.log('Body background:', getComputedStyle(document.body).backgroundColor);
-
-              // Check if there are any elements with prominent background colors
-              const prominentElements = Array.from(document.querySelectorAll('*')).filter((el) => {
-                const style = getComputedStyle(el);
-                const bg = style.backgroundColor;
-                return bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent';
-              });
-
-              console.log('🌈 ELEMENTS WITH BACKGROUND COLORS:');
-              prominentElements.slice(0, 10).forEach((el, i) => {
-                const style = getComputedStyle(el);
-                console.log(`  ${i}: ${el.tagName}.${el.className} = ${style.backgroundColor}`);
-              });
-
-              // Stop all observers
-              observers.forEach((obs) => {
-                if (typeof obs === 'function') obs();
-                else obs.disconnect();
-              });
-
-              console.log('='.repeat(60));
-              console.log('🏁 NAVIGATION TRACE COMPLETE');
             }, 1000);
           } catch (error) {
             console.warn('Scroll error:', error);
             scrollLockRef.current = false;
-            observers.forEach((obs) => {
-              if (typeof obs === 'function') obs();
-              else obs.disconnect();
-            });
           }
         } else if (retries > 0) {
           setTimeout(() => attemptScroll(retries - 1), 100);
         } else {
           console.warn(`Section ${sectionId} not found after retries`);
           scrollLockRef.current = false;
-          observers.forEach((obs) => {
-            if (typeof obs === 'function') obs();
-            else obs.disconnect();
-          });
         }
       };
 

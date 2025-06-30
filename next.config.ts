@@ -30,9 +30,9 @@ const nextConfig: NextConfig = {
 
   // Experimental features for better performance
   experimental: {
-    esmExternals: true,
-    optimizeCss: true,
-    scrollRestoration: true,
+    // esmExternals: true,
+    // optimizeCss: true,
+    // scrollRestoration: true,
   },
 
   // Turbopack configuration (for development)
