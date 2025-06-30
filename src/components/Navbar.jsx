@@ -157,7 +157,7 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button
-            className="rounded-full p-2 text-gray-200 transition-colors hover:text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-400 md:hidden"
+            className="rounded-full p-2 text-gray-200 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-white md:hidden"
             onClick={toggleMenu}
             aria-label="Toggle menu"
             aria-expanded={isOpen}
@@ -183,8 +183,8 @@ const Navbar = () => {
                   onClick={(e) => scrollToSection(e, item.path.substring(1))}
                   className={`block rounded px-4 py-2 text-base font-medium transition-all duration-200 ${
                     activeSection === item.path.substring(1)
-                      ? 'bg-white/5 text-teal-400'
-                      : 'text-gray-200 hover:bg-white/5 hover:text-teal-400'
+                      ? 'bg-white/5 text-white'
+                      : 'text-gray-200 hover:bg-white/5 hover:text-white'
                   }`}
                 >
                   {item.name}

@@ -147,7 +147,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="rounded-2xl border border-white/10 bg-black/20 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-8 md:p-10"
+            className="rounded-2xl border border-white/10 bg-slate-900/50 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-8 md:p-10"
           >
             <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
               <div>
@@ -161,11 +161,11 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-white/70 focus:ring-2 focus:ring-white/50"
                   disabled={isSubmitting}
                 />
                 {touched.name && getFieldError('name') && (
-                  <div className="mt-1 text-sm text-teal-400">{getFieldError('name')}</div>
+                  <div className="mt-1 text-sm text-white">{getFieldError('name')}</div>
                 )}
               </div>
               <div>
@@ -179,11 +179,11 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-white/70 focus:ring-2 focus:ring-white/50"
                   disabled={isSubmitting}
                 />
                 {touched.email && getFieldError('email') && (
-                  <div className="mt-1 text-sm text-teal-400">{getFieldError('email')}</div>
+                  <div className="mt-1 text-sm text-white">{getFieldError('email')}</div>
                 )}
               </div>
               <div>
@@ -197,11 +197,11 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-white/70 focus:ring-2 focus:ring-white/50"
                   disabled={isSubmitting}
                 />
                 {touched.subject && getFieldError('subject') && (
-                  <div className="mt-1 text-sm text-teal-400">{getFieldError('subject')}</div>
+                  <div className="mt-1 text-sm text-white">{getFieldError('subject')}</div>
                 )}
               </div>
               <div>
@@ -215,11 +215,11 @@ const Contact = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   rows="5"
-                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-white/70 focus:ring-2 focus:ring-white/50"
                   disabled={isSubmitting}
                 ></textarea>
                 {touched.message && getFieldError('message') && (
-                  <div className="mt-1 text-sm text-teal-400">{getFieldError('message')}</div>
+                  <div className="mt-1 text-sm text-white">{getFieldError('message')}</div>
                 )}
               </div>
               <button
@@ -265,7 +265,7 @@ const Contact = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.5 }}
-              className="fixed inset-x-0 bottom-10 z-50 mx-auto w-fit rounded-lg bg-teal-600 px-6 py-3 text-white shadow-lg"
+              className="fixed inset-x-0 bottom-10 z-50 mx-auto w-fit rounded-lg bg-gray-600 px-6 py-3 text-white shadow-lg"
             >
               Message sent successfully!
             </motion.div>

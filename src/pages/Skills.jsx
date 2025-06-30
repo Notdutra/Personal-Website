@@ -80,10 +80,10 @@ const Skills = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className="rounded-xl border border-white/10 bg-black/20 p-5 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-6 md:p-7"
+              className="rounded-xl border border-white/10 bg-slate-900/50 p-5 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-6 md:p-7"
             >
               <div className="mb-4 flex items-center sm:mb-5">
-                <div className="mr-3 text-xl text-teal-400 sm:text-2xl">{skill.icon}</div>
+                <div className="mr-3 text-xl text-white sm:text-2xl">{skill.icon}</div>
                 <h2 className="text-lg font-semibold text-white sm:text-xl">{skill.category}</h2>
               </div>
               <div className="xs:grid-cols-2 grid grid-cols-1 gap-3 sm:gap-4">
@@ -98,10 +98,8 @@ const Skills = () => {
                     }}
                     className="flex items-center text-sm text-gray-200 sm:text-base"
                   >
-                    <FiCheckCircle className="mr-2 shrink-0 text-teal-400" />
-                    <span className="transition-colors duration-200 hover:text-teal-400">
-                      {item}
-                    </span>
+                    <FiCheckCircle className="mr-2 shrink-0 text-white" />
+                    <span className="transition-colors duration-200 hover:text-white">{item}</span>
                   </motion.div>
                 ))}
               </div>

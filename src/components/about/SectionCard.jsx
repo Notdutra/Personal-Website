@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiBook, FiBriefcase, FiCode, FiChevronDown } from 'react-icons/fi';
 
 const iconComponents = {
-  book: <FiBook size={32} className="text-teal-400" />,
-  briefcase: <FiBriefcase size={32} className="text-teal-400" />,
-  code: <FiCode size={32} className="text-teal-400" />,
+  book: <FiBook size={32} className="text-white" />,
+  briefcase: <FiBriefcase size={32} className="text-white" />,
+  code: <FiCode size={32} className="text-white" />,
 };
 
 const SectionCard = ({
@@ -61,8 +61,8 @@ const SectionCard = ({
       }}
       className={`flex grow flex-col rounded-3xl border ${
         isExpanded
-          ? 'border-teal-400/40 bg-black/30 p-6 shadow-xl shadow-black/30'
-          : 'h-auto cursor-pointer border-white/10 bg-white/5 p-6 transition-transform hover:scale-[1.03] hover:border-teal-400/40 hover:shadow-teal-900/30'
+          ? 'border-white/40 bg-black/30 p-6 shadow-xl shadow-black/30'
+          : 'h-auto cursor-pointer border-white/10 bg-white/5 p-6 transition-transform hover:scale-[1.03] hover:border-white/40 hover:shadow-gray-900/30'
       } w-full`}
       onClick={() => !isExpanded && onClick(index)}
       tabIndex={0}
@@ -74,12 +74,12 @@ const SectionCard = ({
       {/* Card Header */}
       <div className="relative flex h-auto flex-col gap-4">
         <div className="flex items-start gap-4">
-          <span className="flex items-center justify-center rounded-xl bg-teal-500/15 p-3 shadow-inner">
-            {iconComponents[section.icon] || <FiCode size={28} className="text-teal-400" />}
+          <span className="flex items-center justify-center rounded-xl bg-gray-500/15 p-3 shadow-inner">
+            {iconComponents[section.icon] || <FiCode size={28} className="text-white" />}
           </span>
           <div className="flex flex-col">
             <h2 className="mb-1 text-xl font-bold text-white">{section.title}</h2>
-            {section.year && <p className="text-sm font-medium text-teal-300">{section.year}</p>}
+            {section.year && <p className="text-sm font-medium text-gray-300">{section.year}</p>}
           </div>
         </div>
         <button
@@ -90,7 +90,7 @@ const SectionCard = ({
           className="absolute right-0 top-0 rounded-full p-2 transition-colors"
           aria-label={isExpanded ? 'Close details' : `Open details for ${section.title}`}
         >
-          <FiChevronDown className={`${isExpanded ? 'rotate-180' : ''} text-teal-400`} size={20} />
+          <FiChevronDown className={`${isExpanded ? 'rotate-180' : ''} text-white`} size={20} />
         </button>
       </div>
       <p className="leading-relaxed text-gray-200">{section.content}</p>
@@ -104,7 +104,7 @@ const SectionCard = ({
           <div className="space-y-10">
             {section.details && (
               <div>
-                <h3 className="mb-3 text-lg font-semibold text-teal-300">Details</h3>
+                <h3 className="mb-3 text-lg font-semibold text-gray-300">Details</h3>
                 <p className="whitespace-pre-line leading-relaxed text-gray-200">
                   {section.details}
                 </p>
@@ -112,7 +112,7 @@ const SectionCard = ({
             )}
             {section.fullText && (
               <div>
-                <h3 className="mb-3 text-lg font-semibold text-teal-300">Full Story</h3>
+                <h3 className="mb-3 text-lg font-semibold text-gray-300">Full Story</h3>
                 <p className="whitespace-pre-line leading-relaxed text-gray-200">
                   {section.fullText}
                 </p>

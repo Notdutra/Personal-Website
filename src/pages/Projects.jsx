@@ -44,7 +44,7 @@ const Projects = () => {
             className="mx-auto mb-8 max-w-3xl text-center sm:mb-12"
           >
             <h1 className="heading-primary">My Projects</h1>
-            <span className="mb-4 inline-block rounded-full border border-teal-400 px-4 py-1 text-sm font-medium text-teal-300">
+            <span className="mb-4 inline-block rounded-full border border-white px-4 py-1 text-sm font-medium text-gray-300">
               Coming Soon! 🚀
             </span>
             <p className="text-lg leading-relaxed text-gray-300 md:text-xl">

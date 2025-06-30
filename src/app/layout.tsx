@@ -81,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="color-scheme" content="dark only" />
         <meta name="supported-color-schemes" content="dark" />
       </head>
-      <body className="min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white">
+      <body className="min-h-screen text-white">
         <Navbar />
         <div id="root">{children}</div>
       </body>

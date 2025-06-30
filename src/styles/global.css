@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #243447;
-  --secondary-color: #1a1f2b;
-  --background-dark: #111827;
+  --primary-color: #000000;
+  --secondary-color: #000000;
+  --background-dark: #000000;
   --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
+  --text-secondary: #cccccc;
   color-scheme: dark only !important;
   --color-scheme: dark !important;
 }
@@ -44,8 +44,8 @@ html::before {
   }
 
   body {
-    @apply min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white;
-    background: linear-gradient(180deg, #243447 0%, #1a1f2b 50%, #111827 100%) !important;
+    @apply min-h-screen text-white;
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%) !important;
     overflow-x: hidden; /* Prevent horizontal overflow at the body level */
   }
 
@@ -101,7 +101,7 @@ html::before {
   }
 
   .button-primary {
-    @apply rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-blue-700;
+    @apply rounded-lg bg-gray-600 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-gray-700;
   }
 
   .button-secondary {
