@@ -209,6 +209,27 @@ const Navbar = () => {
                 console.log(`  Final meta ${i}:`, meta.getAttribute('content'));
               });
 
+              // CHECK FOR BROWSER COLOR SAMPLING
+              console.log('🎨 CHECKING FOR BROWSER COLOR SAMPLING:');
+              console.log(
+                'Document background:',
+                getComputedStyle(document.documentElement).backgroundColor,
+              );
+              console.log('Body background:', getComputedStyle(document.body).backgroundColor);
+
+              // Check if there are any elements with prominent background colors
+              const prominentElements = Array.from(document.querySelectorAll('*')).filter((el) => {
+                const style = getComputedStyle(el);
+                const bg = style.backgroundColor;
+                return bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent';
+              });
+
+              console.log('🌈 ELEMENTS WITH BACKGROUND COLORS:');
+              prominentElements.slice(0, 10).forEach((el, i) => {
+                const style = getComputedStyle(el);
+                console.log(`  ${i}: ${el.tagName}.${el.className} = ${style.backgroundColor}`);
+              });
+
               // Stop all observers
               observers.forEach((obs) => {
                 if (typeof obs === 'function') obs();
