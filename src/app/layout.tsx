@@ -73,11 +73,30 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ colorScheme: 'dark' }}>
       <head>
         <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#000000" />
+        <meta name="color-scheme" content="dark only" />
+        <meta name="supported-color-schemes" content="dark" />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            :root { 
+              color-scheme: dark only !important; 
+              --color-scheme: dark !important;
+            }
+            html { 
+              color-scheme: dark only !important;
+              background: #000 !important;
+            }
+            body {
+              background: linear-gradient(180deg, #243447 0%, #1a1f2b 50%, #111827 100%) !important;
+            }
+          `,
+          }}
+        />
       </head>
       <body className="min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white">
         <Navbar />
