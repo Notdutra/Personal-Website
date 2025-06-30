@@ -80,6 +80,47 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#000000" />
         <meta name="color-scheme" content="dark only" />
         <meta name="supported-color-schemes" content="dark" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            // FORCE BLACK THEME COLOR - NUCLEAR OPTION
+            (function() {
+              function forceThemeColor() {
+                // Remove any existing theme-color meta tags
+                const existingMetas = document.querySelectorAll('meta[name="theme-color"]');
+                existingMetas.forEach(meta => meta.remove());
+                
+                // Add our black theme-color meta tag
+                const meta = document.createElement('meta');
+                meta.name = 'theme-color';
+                meta.content = '#000000';
+                document.head.appendChild(meta);
+                
+                // Also try the manifest approach
+                const manifestMeta = document.createElement('meta');
+                manifestMeta.name = 'msapplication-navbutton-color';
+                manifestMeta.content = '#000000';
+                document.head.appendChild(manifestMeta);
+                
+                const appleMeta = document.createElement('meta');
+                appleMeta.name = 'apple-mobile-web-app-status-bar-style';
+                appleMeta.content = 'black-translucent';
+                document.head.appendChild(appleMeta);
+              }
+              
+              // Force on load
+              forceThemeColor();
+              
+              // Force on every hash change
+              window.addEventListener('hashchange', forceThemeColor);
+              window.addEventListener('popstate', forceThemeColor);
+              
+              // Force every 100ms (aggressive)
+              setInterval(forceThemeColor, 100);
+            })();
+          `,
+          }}
+        />
         <style
           dangerouslySetInnerHTML={{
             __html: `
