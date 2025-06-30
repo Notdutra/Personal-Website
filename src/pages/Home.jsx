@@ -95,7 +95,7 @@ const Home = () => {
               <FadeIn
                 delay={1.5}
                 duration={1}
-                className="absolute inset-0 rounded-full bg-teal-500/10 bg-gradient-to-r from-teal-500/20 to-blue-500/20 blur-3xl"
+                className="absolute inset-0 rounded-full bg-black/10 blur-3xl"
               />
               <div>
                 <Image

@@ -80,64 +80,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#000000" />
         <meta name="color-scheme" content="dark only" />
         <meta name="supported-color-schemes" content="dark" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            // FORCE BLACK THEME COLOR - NUCLEAR OPTION
-            (function() {
-              function forceThemeColor() {
-                // Remove any existing theme-color meta tags
-                const existingMetas = document.querySelectorAll('meta[name="theme-color"]');
-                existingMetas.forEach(meta => meta.remove());
-                
-                // Add our black theme-color meta tag
-                const meta = document.createElement('meta');
-                meta.name = 'theme-color';
-                meta.content = '#000000';
-                document.head.appendChild(meta);
-                
-                // Also try the manifest approach
-                const manifestMeta = document.createElement('meta');
-                manifestMeta.name = 'msapplication-navbutton-color';
-                manifestMeta.content = '#000000';
-                document.head.appendChild(manifestMeta);
-                
-                const appleMeta = document.createElement('meta');
-                appleMeta.name = 'apple-mobile-web-app-status-bar-style';
-                appleMeta.content = 'black-translucent';
-                document.head.appendChild(appleMeta);
-              }
-              
-              // Force on load
-              forceThemeColor();
-              
-              // Force on every hash change
-              window.addEventListener('hashchange', forceThemeColor);
-              window.addEventListener('popstate', forceThemeColor);
-              
-              // Force every 100ms (aggressive)
-              setInterval(forceThemeColor, 100);
-            })();
-          `,
-          }}
-        />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-            :root { 
-              color-scheme: dark only !important; 
-              --color-scheme: dark !important;
-            }
-            html { 
-              color-scheme: dark only !important;
-              background: #000 !important;
-            }
-            body {
-              background: linear-gradient(180deg, #243447 0%, #1a1f2b 50%, #111827 100%) !important;
-            }
-          `,
-          }}
-        />
       </head>
       <body className="min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white">
         <Navbar />

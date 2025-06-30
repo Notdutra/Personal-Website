@@ -147,7 +147,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="rounded-2xl border border-white/10 bg-[#1a1f2b]/80 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-8 md:p-10"
+            className="rounded-2xl border border-white/10 bg-black/20 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-8 md:p-10"
           >
             <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
               <div>
@@ -224,7 +224,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className={`w-full rounded-lg bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-3 font-medium text-white shadow-md transition-all duration-300 hover:from-teal-600 hover:to-blue-600 hover:shadow-lg sm:px-8 sm:py-4 ${isSubmitting ? 'cursor-not-allowed opacity-60' : ''}`}
+                className={`w-full rounded-lg bg-black px-6 py-3 font-medium text-white shadow-md transition-all duration-300 hover:bg-gray-900 hover:shadow-lg sm:px-8 sm:py-4 ${isSubmitting ? 'cursor-not-allowed opacity-60' : ''}`}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (

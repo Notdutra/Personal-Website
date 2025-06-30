@@ -80,7 +80,7 @@ const Skills = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className="rounded-xl border border-white/10 bg-[#1a1f2b]/80 p-5 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-6 md:p-7"
+              className="rounded-xl border border-white/10 bg-black/20 p-5 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-6 md:p-7"
             >
               <div className="mb-4 flex items-center sm:mb-5">
                 <div className="mr-3 text-xl text-teal-400 sm:text-2xl">{skill.icon}</div>

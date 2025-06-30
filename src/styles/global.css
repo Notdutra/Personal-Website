@@ -8,14 +8,15 @@
   --background-dark: #111827;
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
-  color-scheme: dark;
+  color-scheme: dark only !important;
+  --color-scheme: dark !important;
 }
 
 /* Force theme color consistency */
 html {
-  background-color: #1a1f2b !important;
+  background-color: #000 !important;
+  color-scheme: dark only !important;
   /* Prevent browser color sampling */
-  color-scheme: dark !important;
 }
 
 html::before {
@@ -44,6 +45,7 @@ html::before {
 
   body {
     @apply min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white;
+    background: linear-gradient(180deg, #243447 0%, #1a1f2b 50%, #111827 100%) !important;
     overflow-x: hidden; /* Prevent horizontal overflow at the body level */
   }
 

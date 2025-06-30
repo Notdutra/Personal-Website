@@ -61,7 +61,7 @@ const SectionCard = ({
       }}
       className={`flex grow flex-col rounded-3xl border ${
         isExpanded
-          ? 'border-teal-400/40 bg-gradient-to-br from-[#1e2332]/95 to-[#151922]/95 p-6 shadow-xl shadow-black/30'
+          ? 'border-teal-400/40 bg-black/30 p-6 shadow-xl shadow-black/30'
           : 'h-auto cursor-pointer border-white/10 bg-white/5 p-6 transition-transform hover:scale-[1.03] hover:border-teal-400/40 hover:shadow-teal-900/30'
       } w-full`}
       onClick={() => !isExpanded && onClick(index)}
