@@ -75,6 +75,36 @@ const Navbar = () => {
       e.preventDefault();
       e.stopPropagation();
 
+      // AGGRESSIVE DEBUGGING - Log everything before navigation
+      console.log('🔍 BEFORE NAVIGATION:');
+      console.log('Target section:', sectionId);
+      const beforeMeta = document.querySelector('meta[name="theme-color"]');
+      console.log('Meta tag before:', beforeMeta?.getAttribute('content'));
+      console.log(
+        'All meta tags:',
+        Array.from(document.querySelectorAll('meta[name="theme-color"]')).map((m) =>
+          m.getAttribute('content'),
+        ),
+      );
+
+      // Monitor for any changes during navigation
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'content') {
+            console.log('🚨 THEME COLOR CHANGED DURING NAVIGATION!');
+            console.log('Changed from:', mutation.oldValue);
+            console.log('Changed to:', mutation.target.getAttribute('content'));
+            console.log('Changed by:', new Error().stack);
+          }
+        });
+      });
+
+      // Start observing
+      const allMetaTags = document.querySelectorAll('meta[name="theme-color"]');
+      allMetaTags.forEach((tag) => {
+        observer.observe(tag, { attributes: true, attributeOldValue: true });
+      });
+
       // Close mobile menu
       if (isOpen) {
         setIsOpen(false);
@@ -85,7 +115,15 @@ const Navbar = () => {
 
       // Update URL hash first to trigger LazyComponent loading
       const oldHash = window.location.hash;
+      console.log('🔗 Changing hash from:', oldHash, 'to:', `#${sectionId}`);
       window.location.hash = `#${sectionId}`;
+
+      // Log after hash change
+      setTimeout(() => {
+        const afterMeta = document.querySelector('meta[name="theme-color"]');
+        console.log('🔍 AFTER HASH CHANGE:');
+        console.log('Meta tag after:', afterMeta?.getAttribute('content'));
+      }, 10);
 
       // Trigger hashchange event if hash didn't actually change
       if (oldHash === `#${sectionId}`) {
@@ -107,10 +145,17 @@ const Navbar = () => {
 
             setTimeout(() => {
               scrollLockRef.current = false;
+              // Stop observing after scroll is done
+              observer.disconnect();
+
+              // Final check
+              const finalMeta = document.querySelector('meta[name="theme-color"]');
+              console.log('🏁 FINAL THEME COLOR:', finalMeta?.getAttribute('content'));
             }, 1000);
           } catch (error) {
             console.warn('Scroll error:', error);
             scrollLockRef.current = false;
+            observer.disconnect();
           }
         } else if (retries > 0) {
           // Section not found, retry after a short delay (for lazy loading)
@@ -119,6 +164,7 @@ const Navbar = () => {
           // Failed to find section after retries
           console.warn(`Section ${sectionId} not found after retries`);
           scrollLockRef.current = false;
+          observer.disconnect();
         }
       };
 
@@ -130,6 +176,62 @@ const Navbar = () => {
   );
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  // GLOBAL THEME COLOR MONITOR - Track ALL changes
+  useEffect(() => {
+    console.log('🔥 STARTING GLOBAL THEME COLOR MONITOR');
+
+    const globalObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.target.getAttribute &&
+          mutation.target.getAttribute('name') === 'theme-color'
+        ) {
+          console.log('🚨 GLOBAL: Theme color meta tag changed!');
+          console.log('From:', mutation.oldValue);
+          console.log('To:', mutation.target.getAttribute('content'));
+          console.log('Stack trace:', new Error().stack);
+        }
+      });
+    });
+
+    // Also monitor for new meta tags being added
+    const headObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (
+            node.nodeName === 'META' &&
+            node.getAttribute &&
+            node.getAttribute('name') === 'theme-color'
+          ) {
+            console.log('🚨 GLOBAL: New theme-color meta tag added!');
+            console.log('Content:', node.getAttribute('content'));
+            console.log('Stack trace:', new Error().stack);
+          }
+        });
+      });
+    });
+
+    // Start observing
+    const allMetaTags = document.querySelectorAll('meta[name="theme-color"]');
+    allMetaTags.forEach((tag) => {
+      globalObserver.observe(tag, { attributes: true, attributeOldValue: true });
+    });
+
+    headObserver.observe(document.head, { childList: true, subtree: true });
+
+    // Log initial state
+    console.log('🔍 INITIAL THEME COLOR STATE:');
+    allMetaTags.forEach((tag, index) => {
+      console.log(`Meta tag ${index}:`, tag.getAttribute('content'));
+    });
+
+    return () => {
+      globalObserver.disconnect();
+      headObserver.disconnect();
+      console.log('🔥 STOPPED GLOBAL THEME COLOR MONITOR');
+    };
+  }, []);
 
   return (
     <nav className="fixed top-0 z-50 w-full backdrop-blur-sm">

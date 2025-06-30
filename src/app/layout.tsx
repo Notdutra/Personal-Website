@@ -4,7 +4,10 @@ import '../styles/global.css';
 import Navbar from '../components/Navbar';
 
 export const viewport: Viewport = {
-  themeColor: '#1a1f2b',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#000000' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  ],
   width: 'device-width',
   initialScale: 1,
   colorScheme: 'dark',
@@ -71,6 +74,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#000000" />
+      </head>
       <body className="min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white">
         <Navbar />
         <div id="root">{children}</div>
