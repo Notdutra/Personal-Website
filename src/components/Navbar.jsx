@@ -75,15 +75,6 @@ const Navbar = () => {
       e.preventDefault();
       e.stopPropagation();
 
-      // Log current theme color on navigation
-      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      if (metaThemeColor) {
-        console.log(
-          `Navigation to #${sectionId}, theme-color:`,
-          metaThemeColor.getAttribute('content'),
-        );
-      }
-
       // Close mobile menu
       if (isOpen) {
         setIsOpen(false);
@@ -139,26 +130,6 @@ const Navbar = () => {
   );
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
-
-  // Add theme color monitoring
-  useEffect(() => {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.target.getAttribute('name') === 'theme-color') {
-          console.log('Theme color changed to:', mutation.target.getAttribute('content'));
-        }
-      });
-    });
-
-    // Start observing the head for theme-color meta tag changes
-    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-    if (metaThemeColor) {
-      observer.observe(metaThemeColor, { attributes: true });
-      console.log('Initial theme color:', metaThemeColor.getAttribute('content'));
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <nav className="fixed top-0 z-50 w-full backdrop-blur-sm">

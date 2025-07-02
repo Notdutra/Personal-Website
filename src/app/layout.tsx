@@ -1,16 +1,12 @@
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
 import React from 'react';
 import '../styles/global.css';
 import Navbar from '../components/Navbar';
 
-export const viewport: Viewport = {
-  themeColor: '#1a1f2b',
-};
-
 export const metadata: Metadata = {
   title: {
-    default: 'Arthur Dutra | Software Developer',
-    template: '%s | Arthur Dutra',
+    default: 'Arthur Schossler Dutra | Software Developer',
+    template: '%s | Arthur Schossler Dutra – Software Developer',
   },
   description:
     'Arthur Dutra - Software Developer & Tech Enthusiast building modern web applications with React, Next.js, and cutting-edge technologies.',
