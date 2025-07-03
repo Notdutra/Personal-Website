@@ -29,8 +29,8 @@ const Contact = dynamic(() => import('../pages/Contact'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Arthur Dutra | Software Developer',
-  description: 'Arthur Dutra - Software Developer & Tech Enthusiast',
+  title: 'Arthur Schossler Dutra | Software Developer',
+  description: 'Arthur Schossler Dutra - Software Developer & Tech Enthusiast',
 };
 
 export default function HomePage() {
