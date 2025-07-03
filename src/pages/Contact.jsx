@@ -214,8 +214,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  rows="5"
-                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  className="h-24 w-full resize-y rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50 md:h-28"
                   disabled={isSubmitting}
                 ></textarea>
                 {touched.message && getFieldError('message') && (

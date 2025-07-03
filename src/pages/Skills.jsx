@@ -1,46 +1,68 @@
 'use client';
 
-import { FiCheckCircle } from 'react-icons/fi';
+import {
+  FiCheckCircle,
+  FiCode,
+  FiTool,
+  FiDatabase,
+  FiPlay,
+  FiUsers,
+  FiMonitor,
+} from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { skillIcons } from '../data/skillIcons';
 
 const skills = [
   {
     category: 'Languages',
-    icon: <FiCheckCircle />,
-    items: ['Java', 'JavaScript', 'Python', 'Dart', 'C#', 'HTML', 'CSS'],
+    icon: <FiCode />,
+    items: [
+      'Java',
+      'JavaScript',
+      'TypeScript',
+      'Python',
+      'Dart',
+      'Swift',
+      'C#',
+      'HTML',
+      'CSS',
+      'JSON',
+    ],
   },
   {
     category: 'Frameworks & Tools',
-    icon: <FiCheckCircle />,
+    icon: <FiTool />,
     items: [
       'Spring Boot',
       'React',
+      'Next.js',
       'Flutter',
       '.NET Core',
       'Node.js',
       'Git/GitHub',
       'Postman',
       'Salesforce',
+      'Vercel',
     ],
   },
   {
     category: 'Databases',
-    icon: <FiCheckCircle />,
-    items: ['SQL', 'MongoDB'],
+    icon: <FiDatabase />,
+    items: ['SQL', 'Oracle', 'MongoDB', 'Supabase'],
   },
   {
     category: 'Testing & Integration',
-    icon: <FiCheckCircle />,
-    items: ['JUnit', 'Mockito', 'Cypress', 'Jest', 'REST', 'GraphQL'],
+    icon: <FiPlay />,
+    items: ['JUnit', 'Jest', 'GraphQL'],
   },
   {
     category: 'Soft Skills',
-    icon: <FiCheckCircle />,
+    icon: <FiUsers />,
     items: ['Team Collaboration', 'Problem Solving', 'Time Management'],
   },
   {
     category: 'Operating Systems',
-    icon: <FiCheckCircle />,
+    icon: <FiMonitor />,
     items: ['Windows', 'Linux', 'macOS'],
   },
 ];
@@ -98,7 +120,17 @@ const Skills = () => {
                     }}
                     className="flex items-center text-sm text-gray-200 sm:text-base"
                   >
-                    <FiCheckCircle className="mr-2 shrink-0 text-teal-400" />
+                    <span className="mr-2 shrink-0 text-xl">
+                      {skillIcons[item]?.endsWith('.svg') || skillIcons[item]?.endsWith('.png') ? (
+                        <img
+                          src={skillIcons[item]}
+                          alt={item + ' logo'}
+                          className="inline-block h-5 w-5 align-middle"
+                        />
+                      ) : (
+                        skillIcons[item] || <FiCheckCircle className="text-teal-400" />
+                      )}
+                    </span>
                     <span className="transition-colors duration-200 hover:text-teal-400">
                       {item}
                     </span>
