@@ -100,8 +100,11 @@ const Navbar = () => {
         if (section) {
           try {
             const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+            const isMobile = window.innerWidth < 768;
+            const offset = isMobile ? 0 : -12;
+
             window.scrollTo({
-              top: sectionTop,
+              top: sectionTop - offset,
               behavior: 'smooth',
             });
 
@@ -132,7 +135,9 @@ const Navbar = () => {
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   return (
-    <nav className="fixed top-0 z-50 w-full backdrop-blur-sm">
+    <nav
+      className={`fixed top-0 z-[100] w-full ${isOpen ? 'backdrop-blur-sm' : 'md:backdrop-blur-sm'}`}
+    >
       <div className="container">
         <div className="flex items-center justify-start py-4">
           {/* Desktop Navigation - left aligned (like production) */}

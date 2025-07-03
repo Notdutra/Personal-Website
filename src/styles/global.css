@@ -30,7 +30,6 @@
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
-    scroll-padding-top: 4rem; /* Set to navbar height */
     background-color: var(--background-dark);
   }
 
@@ -47,9 +46,9 @@
     scrollbar-width: none;
   }
 
-  /* Base styles for scroll targets */
+  /* Base styles for scroll targets - removed scroll margin, handled in JS */
   [id] {
-    scroll-margin-top: 4rem; /* Set to navbar height */
+    /* Manual scroll offset handled in JavaScript */
   }
 }
 
