@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiBook, FiBriefcase, FiCode, FiChevronDown } from 'react-icons/fi';
+import { useEffect, useRef } from 'react';
 
 const iconComponents = {
   book: <FiBook size={32} className="text-teal-400" />,
@@ -21,9 +22,24 @@ const SectionCard = ({
   const isTopRow = rowIndex === 0;
   const shouldExpandUp = !isTopRow;
   const shouldExpandLeft = !isLeftColumn;
+  const cardRef = useRef(null);
+
+  // Detect outside click to close expanded card on md+ screens
+  useEffect(() => {
+    if (!isExpanded) return;
+    if (typeof window === 'undefined' || window.innerWidth < 768) return;
+    const handleClick = (e) => {
+      if (cardRef.current && !cardRef.current.contains(e.target)) {
+        onClick(index);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [isExpanded, index, onClick]);
 
   return (
     <motion.div
+      ref={cardRef}
       layout={false}
       initial={{ y: 24 }}
       animate={{
