@@ -16,9 +16,3 @@ A modern web app built with **Next.js**, **React**, and **Tailwind CSS**.
 - **Routing:** React Router
 - **Animations:** Framer Motion
 - **Deployment:** Vercel
-
-## 📦 Scripts
-
-- `npm run dev`: Start the development server
-- `npm run build`: Build the project for production
-- `npm run preview`: Preview the production build
