@@ -107,6 +107,14 @@ const About = () => {
           </motion.p>
         </div>
 
+        {/* Overlay for expanded card on desktop */}
+        {desktopMode && expandedIndex !== null && (
+          <div
+            className="fixed inset-0 z-40 hidden bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:block"
+            aria-hidden="true"
+          />
+        )}
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -134,7 +142,7 @@ const About = () => {
                       duration: expandedIndex === null ? 0.4 : 0.2,
                       ease: 'easeOut',
                     }}
-                    className={`relative flex h-auto ${expanded ? 'z-30' : 'overflow-hidden'}`}
+                    className={`relative flex h-auto ${expanded ? 'z-50' : 'overflow-hidden'}`}
                   >
                     <SectionCard
                       section={section}
