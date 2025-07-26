@@ -5,12 +5,19 @@ import { projects } from '../data/projects';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
 
+import { useCallback } from 'react';
+
 const Projects = () => {
+  const [modalProject, setModalProject] = useState(null);
+
+  const openModal = useCallback((project) => setModalProject(project), []);
+  const closeModal = useCallback(() => setModalProject(null), []);
   // Dynamically determine available categories from projects
   const availableCategories = useMemo(() => {
-    if (projects.length === 0) return [];
+    if (projects.length <= 1) return [];
 
     // Always include "All" if there are any projects
+    // actually should be "All" if there are multiple projects with different categories
     const categories = ['All'];
 
     // Add unique categories from projects
@@ -106,20 +113,30 @@ const Projects = () => {
                 {filteredProjects.map((project) => (
                   <motion.div
                     key={project.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="overflow-hidden rounded-xl bg-white shadow-lg dark:bg-gray-800"
+                    className="overflow-hidden rounded-xl bg-white shadow-lg transition-transform duration-300 hover:scale-[1.03] hover:shadow-2xl dark:bg-gray-800"
                   >
                     {project.image && (
-                      <div className="aspect-video w-full overflow-hidden">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="size-full object-cover transition-transform duration-300 hover:scale-105"
-                        />
-                      </div>
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full focus:outline-none"
+                        tabIndex={0}
+                        aria-label={`Open ${project.title} live site`}
+                      >
+                        <div className="flex aspect-video w-full items-center justify-center overflow-hidden bg-gray-800">
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="h-32 w-32 cursor-pointer select-none object-contain"
+                            draggable={false}
+                          />
+                        </div>
+                      </a>
                     )}
                     <div className="p-6">
                       <h3 className="mb-2 text-xl font-semibold">{project.title}</h3>
@@ -165,6 +182,7 @@ const Projects = () => {
             </AnimatePresence>
           </div>
         </div>
+        {/* Modal temporarily disabled */}
       </div>
     </section>
   );
