@@ -144,10 +144,10 @@ const Contact = () => {
 
         <div className="mx-auto w-full max-w-3xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="rounded-2xl border border-white/10 bg-[#1a1f2b]/80 p-6 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-8 md:p-10"
+            className="rounded-2xl border border-white/10 bg-[#1a1f2b]/80 p-4 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-6 md:p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
               <div>
@@ -214,7 +214,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="h-24 w-full resize-y rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50 md:h-28"
+                  className="h-28 w-full resize-y rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50 md:h-24"
                   disabled={isSubmitting}
                 ></textarea>
                 {touched.message && getFieldError('message') && (
