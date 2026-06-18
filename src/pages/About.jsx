@@ -60,10 +60,11 @@ const About = () => {
     return (
       <section id="about" className="relative">
         <div className="flexColumn">
-          <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
-            <h1 className="heading-primary">About Me</h1>
-            <p className="text-lg leading-relaxed text-gray-300 md:text-xl">
-              My journey from software engineering student to full-stack developer
+          <div className="section-intro">
+            <span className="section-kicker">About</span>
+            <h1 className="section-title">A path shaped by engineering fundamentals and product work.</h1>
+            <p className="section-copy">
+              My journey from software engineering student to full-stack developer.
             </p>
           </div>
         </div>
@@ -88,22 +89,24 @@ const About = () => {
   return (
     <section id="about" className="relative">
       <div className="flexColumn">
-        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
+        <div className="section-intro">
+          <span className="section-kicker">About</span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="heading-primary"
+            className="section-title"
           >
-            About Me
+            Experience that connects strong fundamentals with shipped software.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg leading-relaxed text-gray-300 md:text-xl"
+            className="section-copy"
           >
-            My journey from software engineering student to full-stack developer
+            I care about the technical quality behind the interface, but also about how the end
+            result feels for the person using it.
           </motion.p>
         </div>
 
@@ -119,7 +122,7 @@ const About = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="relative mx-auto mt-4 w-full max-w-5xl overflow-visible md:mt-8"
+            className="relative mx-auto mt-2 w-full max-w-5xl overflow-visible md:mt-6"
         >
           <div className="relative grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
             <AnimatePresence initial={false} mode="sync">

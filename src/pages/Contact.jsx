@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -54,8 +55,8 @@ const Contact = () => {
       setStatus('Please enter your name (at least 2 characters).');
       return false;
     }
-    if (!formData.subject.trim() || formData.subject.trim().length < 3) {
-      setStatus('Please enter a subject (at least 3 characters).');
+    if (!formData.subject.trim() || formData.subject.trim().length < 5) {
+      setStatus('Please enter a subject (at least 5 characters).');
       return false;
     }
     if (!formData.message.trim() || formData.message.trim().length < 30) {
@@ -123,35 +124,93 @@ const Contact = () => {
   return (
     <section id="contact">
       <div className="flexColumn">
-        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
+        <div className="section-intro">
+          <span className="section-kicker">Contact</span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="heading-primary"
+            className="section-title"
           >
-            Get in Touch
+            If you have a product idea or role in mind, let&apos;s talk.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg leading-relaxed text-gray-300 md:text-xl"
+            className="section-copy"
           >
-            Have a question or want to work together? Feel free to reach out!
+            I&apos;m open to opportunities where thoughtful engineering and good interface work
+            both matter.
           </motion.p>
         </div>
 
-        <div className="mx-auto w-full max-w-3xl">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className="glass-panel-strong flex flex-col justify-between p-6 sm:p-8"
+          >
+            <div>
+              <span className="pill">Best for project inquiries</span>
+              <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-white">
+                Clear communication, practical execution, and strong product instincts.
+              </h2>
+              <p className="mt-4 max-w-xl text-base leading-8 text-slate-300">
+                Whether you need a frontend refresh, a product-minded developer, or help turning a
+                rough concept into a polished build, I&apos;m interested.
+              </p>
+            </div>
+            <div className="mt-8 space-y-4">
+              <a
+                href="mailto:arthursdutra@gmail.com"
+                className="flex items-center gap-4 rounded-[24px] border border-white/10 bg-white/5 p-4 text-slate-200 transition hover:border-sky-300/24 hover:bg-white/10"
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-sky-300/18 bg-sky-300/10 text-sky-200">
+                  <FiMail />
+                </span>
+                <span>
+                  <span className="block text-xs uppercase tracking-[0.24em] text-slate-400">
+                    Email
+                  </span>
+                  <span className="block text-sm font-medium sm:text-base">
+                    arthursdutra@gmail.com
+                  </span>
+                </span>
+              </a>
+              <div className="flex gap-4">
+                <a
+                  href="https://github.com/Notdutra"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:border-sky-300/24 hover:bg-white/10 hover:text-white"
+                  aria-label="GitHub"
+                >
+                  <FiGithub />
+                </a>
+                <a
+                  href="https://linkedin.com/in/arthursdutra/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:border-sky-300/24 hover:bg-white/10 hover:text-white"
+                  aria-label="LinkedIn"
+                >
+                  <FiLinkedin />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="rounded-2xl border border-white/10 bg-[#1a1f2b]/80 p-4 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-6 md:p-8"
+            className="glass-panel p-4 sm:p-6 md:p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
               <div>
-                <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-200">
+                <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-200">
                   Name
                 </label>
                 <input
@@ -161,33 +220,33 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-all duration-200 focus:border-sky-300/60"
                   disabled={isSubmitting}
                 />
                 {touched.name && getFieldError('name') && (
-                  <div className="mt-1 text-sm text-teal-400">{getFieldError('name')}</div>
+                  <div className="mt-1 text-sm text-sky-300">{getFieldError('name')}</div>
                 )}
               </div>
               <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-200">
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-200">
                   Email
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-all duration-200 focus:border-sky-300/60"
                   disabled={isSubmitting}
                 />
                 {touched.email && getFieldError('email') && (
-                  <div className="mt-1 text-sm text-teal-400">{getFieldError('email')}</div>
+                  <div className="mt-1 text-sm text-sky-300">{getFieldError('email')}</div>
                 )}
               </div>
               <div>
-                <label htmlFor="subject" className="mb-2 block text-sm font-medium text-gray-200">
+                <label htmlFor="subject" className="mb-2 block text-sm font-medium text-slate-200">
                   Subject
                 </label>
                 <input
@@ -197,15 +256,15 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50"
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-all duration-200 focus:border-sky-300/60"
                   disabled={isSubmitting}
                 />
                 {touched.subject && getFieldError('subject') && (
-                  <div className="mt-1 text-sm text-teal-400">{getFieldError('subject')}</div>
+                  <div className="mt-1 text-sm text-sky-300">{getFieldError('subject')}</div>
                 )}
               </div>
               <div>
-                <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-200">
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-slate-200">
                   Message
                 </label>
                 <textarea
@@ -214,16 +273,21 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="h-28 w-full resize-y rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-teal-400/70 focus:ring-2 focus:ring-teal-400/50 md:h-24"
+                  className="h-32 w-full resize-y rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-all duration-200 focus:border-sky-300/60 md:h-36"
                   disabled={isSubmitting}
                 ></textarea>
                 {touched.message && getFieldError('message') && (
-                  <div className="mt-1 text-sm text-teal-400">{getFieldError('message')}</div>
+                  <div className="mt-1 text-sm text-sky-300">{getFieldError('message')}</div>
                 )}
               </div>
+              {status && (
+                <div className="rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
+                  {status}
+                </div>
+              )}
               <button
                 type="submit"
-                className={`w-full rounded-lg bg-gradient-to-r from-teal-500 to-blue-500 px-6 py-3 font-medium text-white shadow-md transition-all duration-300 hover:from-teal-600 hover:to-blue-600 hover:shadow-lg sm:px-8 sm:py-4 ${isSubmitting ? 'cursor-not-allowed opacity-60' : ''}`}
+                className={`button-primary w-full ${isSubmitting ? 'cursor-not-allowed opacity-60' : ''}`}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -264,7 +328,7 @@ const Contact = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.5 }}
-              className="fixed inset-x-0 bottom-10 z-50 mx-auto w-fit rounded-lg bg-teal-600 px-6 py-3 text-white shadow-lg"
+              className="fixed inset-x-0 bottom-10 z-50 mx-auto w-fit rounded-full bg-sky-500 px-6 py-3 text-white shadow-lg"
             >
               Message sent successfully!
             </motion.div>

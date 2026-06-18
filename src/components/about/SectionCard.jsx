@@ -5,9 +5,9 @@ import { FiBook, FiBriefcase, FiCode, FiChevronDown } from 'react-icons/fi';
 import { useEffect, useRef } from 'react';
 
 const iconComponents = {
-  book: <FiBook size={32} className="text-teal-400" />,
-  briefcase: <FiBriefcase size={32} className="text-teal-400" />,
-  code: <FiCode size={32} className="text-teal-400" />,
+  book: <FiBook size={28} className="text-sky-300" />,
+  briefcase: <FiBriefcase size={28} className="text-sky-300" />,
+  code: <FiCode size={28} className="text-sky-300" />,
 };
 
 const SectionCard = ({
@@ -15,13 +15,10 @@ const SectionCard = ({
   index,
   isExpanded,
   onClick,
-  position = 'left',
   rowIndex = 0,
   isLeftColumn = true,
 }) => {
   const isTopRow = rowIndex === 0;
-  const shouldExpandUp = !isTopRow;
-  const shouldExpandLeft = !isLeftColumn;
   const cardRef = useRef(null);
 
   // Detect outside click to close expanded card on md+ screens
@@ -75,10 +72,10 @@ const SectionCard = ({
           ? `${isTopRow ? 'top' : 'bottom'} ${isLeftColumn ? 'left' : 'right'}`
           : 'top left',
       }}
-      className={`flex grow flex-col rounded-3xl border ${
+      className={`flex grow flex-col rounded-[28px] border ${
         isExpanded
-          ? 'border-teal-400/40 bg-gradient-to-br from-[#1e2332]/95 to-[#151922]/95 p-6 shadow-xl shadow-black/30'
-          : 'h-auto cursor-pointer border-white/10 bg-white/5 p-6 transition-transform hover:scale-[1.03] hover:border-teal-400/40 hover:shadow-teal-900/30'
+          ? 'border-sky-300/30 bg-[linear-gradient(180deg,rgba(18,38,61,0.97),rgba(10,21,35,0.95))] p-6 shadow-2xl shadow-black/40'
+          : 'h-auto cursor-pointer border-white/10 bg-[linear-gradient(180deg,rgba(12,27,44,0.78),rgba(8,18,31,0.7))] p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-300/24 hover:bg-[linear-gradient(180deg,rgba(16,35,56,0.88),rgba(9,20,34,0.8))]'
       } w-full`}
       onClick={() => !isExpanded && onClick(index)}
       tabIndex={0}
@@ -90,12 +87,12 @@ const SectionCard = ({
       {/* Card Header */}
       <div className="relative flex h-auto flex-col gap-4">
         <div className="flex items-start gap-4">
-          <span className="flex items-center justify-center rounded-xl bg-teal-500/15 p-3 shadow-inner">
-            {iconComponents[section.icon] || <FiCode size={28} className="text-teal-400" />}
+          <span className="flex items-center justify-center rounded-2xl border border-sky-300/14 bg-sky-300/10 p-3 shadow-inner">
+            {iconComponents[section.icon] || <FiCode size={28} className="text-sky-300" />}
           </span>
           <div className="flex flex-col">
             <h2 className="mb-1 text-xl font-bold text-white">{section.title}</h2>
-            {section.year && <p className="text-sm font-medium text-teal-300">{section.year}</p>}
+            {section.year && <p className="text-sm font-medium text-sky-200">{section.year}</p>}
           </div>
         </div>
         <button
@@ -103,13 +100,13 @@ const SectionCard = ({
             e.stopPropagation();
             onClick(index);
           }}
-          className="absolute right-0 top-0 rounded-full p-2 transition-colors"
+          className="absolute right-0 top-0 rounded-full border border-white/10 bg-white/5 p-2 transition-colors hover:bg-white/10"
           aria-label={isExpanded ? 'Close details' : `Open details for ${section.title}`}
         >
-          <FiChevronDown className={`${isExpanded ? 'rotate-180' : ''} text-teal-400`} size={20} />
+          <FiChevronDown className={`${isExpanded ? 'rotate-180' : ''} text-sky-300`} size={20} />
         </button>
       </div>
-      <p className="leading-relaxed text-gray-200">{section.content}</p>
+      <p className="leading-8 text-slate-300">{section.content}</p>
 
       {isExpanded && (
         <motion.div
@@ -120,16 +117,16 @@ const SectionCard = ({
           <div className="space-y-10">
             {section.details && (
               <div>
-                <h3 className="mb-3 text-lg font-semibold text-teal-300">Details</h3>
-                <p className="whitespace-pre-line leading-relaxed text-gray-200">
+                <h3 className="mb-3 text-lg font-semibold text-sky-200">Details</h3>
+                <p className="whitespace-pre-line leading-8 text-slate-300">
                   {section.details}
                 </p>
               </div>
             )}
             {section.fullText && (
               <div>
-                <h3 className="mb-3 text-lg font-semibold text-teal-300">Full Story</h3>
-                <p className="whitespace-pre-line leading-relaxed text-gray-200">
+                <h3 className="mb-3 text-lg font-semibold text-sky-200">Full Story</h3>
+                <p className="whitespace-pre-line leading-8 text-slate-300">
                   {section.fullText}
                 </p>
               </div>

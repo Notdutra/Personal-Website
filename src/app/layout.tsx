@@ -63,7 +63,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gradient-to-b from-[#243447] via-[#1a1f2b] to-[#111827] text-white">
+      <body className="min-h-screen text-white">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+        >
+          <div className="absolute left-[-10%] top-[-8%] h-[28rem] w-[28rem] rounded-full bg-sky-400/12 blur-3xl" />
+          <div className="absolute right-[-6%] top-[18%] h-[22rem] w-[22rem] rounded-full bg-amber-400/10 blur-3xl" />
+          <div className="absolute bottom-[-10%] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-cyan-500/8 blur-3xl" />
+        </div>
         <Navbar />
         <div id="root">{children}</div>
       </body>

@@ -71,22 +71,24 @@ const Skills = () => {
   return (
     <section id="skills">
       <div className="flexColumn">
-        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
+        <div className="section-intro">
+          <span className="section-kicker">Skills</span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="heading-primary"
+            className="section-title"
           >
-            My Skills
+            The tools I reach for when building modern products.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg leading-relaxed text-gray-300 md:text-xl"
+            className="section-copy"
           >
-            A showcase of my technical expertise and tools I use to build amazing projects.
+            A practical stack shaped by product work, backend logic, UI development, testing, and
+            day-to-day collaboration.
           </motion.p>
         </div>
 
@@ -94,7 +96,7 @@ const Skills = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8"
+          className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
         >
           {skills.map((skill, index) => (
             <motion.div
@@ -102,10 +104,12 @@ const Skills = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className="rounded-xl border border-white/10 bg-[#1a1f2b]/80 p-5 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-2xl sm:p-6 md:p-7"
+              className="glass-panel group p-5 transition duration-300 hover:-translate-y-1 hover:border-sky-300/25 sm:p-6 md:p-7"
             >
               <div className="mb-4 flex items-center sm:mb-5">
-                <div className="mr-3 text-xl text-teal-400 sm:text-2xl">{skill.icon}</div>
+                <div className="mr-3 rounded-2xl border border-sky-300/14 bg-sky-300/10 p-3 text-xl text-sky-300 sm:text-2xl">
+                  {skill.icon}
+                </div>
                 <h2 className="text-lg font-semibold text-white sm:text-xl">{skill.category}</h2>
               </div>
               <div className="xs:grid-cols-2 grid grid-cols-1 gap-3 sm:gap-4">
@@ -118,7 +122,7 @@ const Skills = () => {
                       duration: 0.3,
                       delay: 0.3 + index * 0.05 + itemIndex * 0.02,
                     }}
-                    className="flex items-center text-sm text-gray-200 sm:text-base"
+                    className="flex items-center rounded-2xl border border-white/5 bg-white/[0.03] px-3 py-2 text-sm text-gray-200 transition hover:border-white/10 hover:bg-white/[0.05] sm:text-base"
                   >
                     <span className="mr-2 shrink-0 text-xl">
                       {skillIcons[item]?.endsWith('.svg') || skillIcons[item]?.endsWith('.png') ? (
@@ -131,9 +135,7 @@ const Skills = () => {
                         skillIcons[item] || <FiCheckCircle className="text-teal-400" />
                       )}
                     </span>
-                    <span className="transition-colors duration-200 hover:text-teal-400">
-                      {item}
-                    </span>
+                    <span className="transition-colors duration-200 group-hover:text-white">{item}</span>
                   </motion.div>
                 ))}
               </div>

@@ -136,24 +136,42 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 z-[100] w-full ${isOpen ? 'backdrop-blur-sm' : 'md:backdrop-blur-sm'}`}
+      className={`fixed inset-x-0 top-0 z-[100] transition-transform duration-300 ${
+        showNavbar ? 'translate-y-0' : '-translate-y-full'
+      }`}
     >
-      <div className="container">
-        <div className="flex items-center justify-start py-4">
-          {/* Desktop Navigation - left aligned (like production) */}
-          <div className="hidden items-center space-x-8 md:flex lg:space-x-12">
+      <div className="container pt-4 sm:pt-5">
+        <div className="glass-panel mx-auto flex max-w-5xl items-center justify-between px-3 py-3 sm:px-4">
+          <a
+            href="#home"
+            onClick={(e) => scrollToSection(e, 'home')}
+            className="ml-1 inline-flex items-center gap-3 rounded-full px-3 py-2 text-left transition hover:bg-white/5"
+            aria-label="Go to home section"
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-sky-300/20 bg-sky-300/10 text-sm font-semibold text-sky-100">
+              AD
+            </span>
+            <span className="hidden sm:block">
+              <span className="block text-sm font-semibold text-white">Arthur Dutra</span>
+              <span className="block text-xs uppercase tracking-[0.24em] text-slate-400">
+                Software Developer
+              </span>
+            </span>
+          </a>
+
+          <div className="hidden items-center gap-2 md:flex">
             {navItems.map((item, index) => (
               <a
                 key={item.path}
                 href={item.path}
                 onClick={(e) => scrollToSection(e, item.path.substring(1))}
-                className={`nav-link cursor-pointer text-base font-medium transition-all duration-200 lg:text-lg ${
+                className={`nav-link cursor-pointer ${
                   activeSection === item.path.substring(1) ? 'active' : ''
                 }`}
                 style={{
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible ? 'translateY(0)' : 'translateY(-10px)',
-                  transitionDelay: `${0.2 + index * 0.1}s`,
+                  transitionDelay: `${0.12 + index * 0.06}s`,
                 }}
               >
                 {item.name}
@@ -161,36 +179,28 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile menu button */}
           <button
-            className="rounded-full p-2 text-gray-200 transition-colors hover:text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-400 md:hidden"
+            className="rounded-full border border-white/10 bg-white/5 p-3 text-gray-100 transition-colors hover:border-sky-300/30 hover:bg-white/10 md:hidden"
             onClick={toggleMenu}
             aria-label="Toggle menu"
             aria-expanded={isOpen}
-            style={{
-              opacity: showNavbar ? 1 : 0,
-              transform: showNavbar ? 'translateY(0)' : 'translateY(-40px)',
-              pointerEvents: showNavbar ? 'auto' : 'none',
-              transition: 'all 0.18s ease-out',
-            }}
           >
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         {isOpen && (
-          <div className="mt-4 md:hidden">
-            <div className="space-y-2 rounded-lg border border-white/10 bg-[#1a2634]/80 p-4 backdrop-blur-sm">
+          <div className="mx-auto mt-3 max-w-5xl md:hidden">
+            <div className="glass-panel space-y-2 p-3">
               {navItems.map((item) => (
                 <a
                   key={item.path}
                   href={item.path}
                   onClick={(e) => scrollToSection(e, item.path.substring(1))}
-                  className={`block rounded px-4 py-2 text-base font-medium transition-all duration-200 ${
+                  className={`block rounded-2xl px-4 py-3 text-base font-medium transition-all duration-200 ${
                     activeSection === item.path.substring(1)
-                      ? 'bg-white/5 text-teal-400'
-                      : 'text-gray-200 hover:bg-white/5 hover:text-teal-400'
+                      ? 'bg-sky-400/10 text-sky-200'
+                      : 'text-gray-200 hover:bg-white/5 hover:text-white'
                   }`}
                 >
                   {item.name}

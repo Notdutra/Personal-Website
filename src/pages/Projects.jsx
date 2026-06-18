@@ -5,37 +5,24 @@ import { projects } from '../data/projects';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
 
-import { useCallback } from 'react';
-
 const Projects = () => {
-  const [modalProject, setModalProject] = useState(null);
-
-  const openModal = useCallback((project) => setModalProject(project), []);
-  const closeModal = useCallback(() => setModalProject(null), []);
-  // Dynamically determine available categories from projects
   const availableCategories = useMemo(() => {
     if (projects.length <= 1) return [];
 
-    // Always include "All" if there are any projects
-    // actually should be "All" if there are multiple projects with different categories
     const categories = ['All'];
-
-    // Add unique categories from projects
     const projectCategories = [...new Set(projects.map((project) => project.category))];
     categories.push(...projectCategories);
 
     return categories;
   }, []);
 
-  // Set active category, defaulting to "All" if available
   const [activeCategory, setActiveCategory] = useState(
     availableCategories.includes('All') ? 'All' : availableCategories[0] || '',
   );
 
-  // Now filter projects AFTER activeCategory is defined
   const filteredProjects =
     activeCategory === ''
-      ? projects // If no category is selected, show all projects
+      ? projects
       : activeCategory === 'All'
         ? projects
         : projects.filter((project) => project.category === activeCategory);
@@ -50,11 +37,11 @@ const Projects = () => {
             transition={{ duration: 0.7 }}
             className="mx-auto mb-8 max-w-3xl text-center sm:mb-12"
           >
-            <h1 className="heading-primary">My Projects</h1>
-            <span className="mb-4 inline-block rounded-full border border-teal-400 px-4 py-1 text-sm font-medium text-teal-300">
+            <h1 className="section-title">Selected projects are on the way.</h1>
+            <span className="mb-4 inline-block rounded-full border border-sky-300/20 px-4 py-1 text-sm font-medium text-sky-200">
               Coming Soon! 🚀
             </span>
-            <p className="text-lg leading-relaxed text-gray-300 md:text-xl">
+            <p className="section-copy">
               I&apos;m currently working on adding my portfolio projects. Check back soon to see
               what I&apos;ve been building!
             </p>
@@ -70,17 +57,17 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="mx-auto mb-8 max-w-3xl text-center sm:mb-12"
+          className="section-intro"
         >
-          <h1 className="heading-primary">My Projects</h1>
-          <p className="text-lg leading-relaxed text-gray-300 md:text-xl">
-            A collection of projects I&apos;ve worked on, showcasing my skills and interests.
+          <span className="section-kicker">Projects</span>
+          <h1 className="section-title">Work that reflects how I think about product and execution.</h1>
+          <p className="section-copy">
+            A collection of shipped ideas, from focused tools to broader product concepts.
           </p>
         </motion.div>
-        {/* Only show filter if there are multiple categories */}
         {availableCategories.length > 1 && (
           <div className="mb-12">
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="glass-panel mx-auto flex w-fit flex-wrap justify-center gap-3 p-2">
               {availableCategories.map((category) => (
                 <motion.button
                   key={category}
@@ -89,8 +76,8 @@ const Projects = () => {
                   onClick={() => setActiveCategory(category)}
                   className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                     activeCategory === category
-                      ? 'bg-primary text-white'
-                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
+                      ? 'bg-sky-400/15 text-white'
+                      : 'text-slate-300 hover:bg-white/5 hover:text-white'
                   }`}
                 >
                   {category}
@@ -99,8 +86,8 @@ const Projects = () => {
             </div>
           </div>
         )}
-        <div className="py-12 sm:py-16 md:py-20">
-          <div className="container mx-auto px-4 sm:px-6">
+        <div className="w-full">
+          <div className="container mx-auto px-0 sm:px-0">
             <AnimatePresence mode="wait">
               <motion.div
                 key="projects-grid"
@@ -108,7 +95,7 @@ const Projects = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3"
+                className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
               >
                 {filteredProjects.map((project) => (
                   <motion.div
@@ -117,7 +104,7 @@ const Projects = () => {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="overflow-hidden rounded-xl bg-white shadow-lg transition-transform duration-300 hover:scale-[1.03] hover:shadow-2xl dark:bg-gray-800"
+                    className="glass-panel overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-sky-300/24"
                   >
                     {project.image && (
                       <a
@@ -128,24 +115,29 @@ const Projects = () => {
                         tabIndex={0}
                         aria-label={`Open ${project.title} live site`}
                       >
-                        <div className="flex aspect-video w-full items-center justify-center overflow-hidden bg-gray-800">
+                        <div className="flex aspect-[16/10] w-full items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_45%),linear-gradient(180deg,#102238,#081321)] p-8">
                           <img
                             src={project.image}
                             alt={project.title}
-                            className="h-32 w-32 cursor-pointer select-none object-contain"
+                            className="h-full max-h-48 w-full cursor-pointer select-none rounded-2xl object-contain"
                             draggable={false}
                           />
                         </div>
                       </a>
                     )}
                     <div className="p-6">
-                      <h3 className="mb-2 text-xl font-semibold">{project.title}</h3>
-                      <p className="mb-4 text-gray-600 dark:text-gray-300">{project.description}</p>
+                      <div className="mb-4 flex items-center justify-between gap-4">
+                        <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                        <span className="rounded-full border border-sky-300/16 bg-sky-300/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-sky-200">
+                          {project.category}
+                        </span>
+                      </div>
+                      <p className="mb-5 leading-7 text-slate-300">{project.description}</p>
                       <div className="mb-4 flex flex-wrap gap-2">
                         {project.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="rounded-full bg-gray-100 px-3 py-1 text-sm dark:bg-gray-700"
+                            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200"
                           >
                             {tech}
                           </span>
@@ -157,7 +149,7 @@ const Projects = () => {
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-600 transition-colors duration-200 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+                            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition duration-200 hover:border-sky-300/24 hover:bg-white/10 hover:text-white"
                             aria-label="GitHub Repository"
                           >
                             <FiGithub size={20} />
@@ -168,7 +160,7 @@ const Projects = () => {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-600 transition-colors duration-200 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+                            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition duration-200 hover:border-sky-300/24 hover:bg-white/10 hover:text-white"
                             aria-label="Live Demo"
                           >
                             <FiExternalLink size={20} />
@@ -182,7 +174,6 @@ const Projects = () => {
             </AnimatePresence>
           </div>
         </div>
-        {/* Modal temporarily disabled */}
       </div>
     </section>
   );
