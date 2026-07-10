@@ -49,4 +49,14 @@ export const projects = [
     category: 'Web',
     image: '/images/projects/wedge.png',
   },
+  {
+    id: 6,
+    title: 'Finance App',
+    description: 'A finance app to track your expenses, transactions and manage your budget.',
+    technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Resend'],
+    github: '',
+    liveUrl: 'https://finance.notdutra.dev/',
+    category: 'Web',
+    image: '/images/projects/finance.png',
+  },
 ];
