@@ -59,4 +59,14 @@ export const projects = [
     category: 'Web',
     image: '/images/projects/finance.png',
   },
+  {
+    id: 7,
+    title: 'List Diff',
+    description: 'Compare two lists by count, content, order, and likely differences or typos.',
+    technologies: ['React', 'TypeScript', 'Vite', 'CSS'],
+    github: 'https://github.com/Notdutra/ListDiff',
+    liveUrl: 'https://listdiff.notdutra.dev/',
+    category: 'Web',
+    image: '/images/projects/listdiff.png',
+  },
 ];
