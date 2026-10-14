@@ -5,6 +5,7 @@ import Image from 'next/image';
 import FadeIn from '../components/FadeIn';
 import SlideIn from '../components/SlideIn';
 import { FiArrowRight, FiGithub, FiLinkedin } from 'react-icons/fi';
+import { projects } from '../data/projects';
 
 const Home = () => {
   return (
@@ -13,36 +14,26 @@ const Home = () => {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
           <div className="text-center lg:text-left">
             <FadeIn delay={0.1} duration={0.7}>
-              <span className="eyebrow">
-                Available for new opportunities
-              </span>
+              <span className="eyebrow">Available for new opportunities</span>
             </FadeIn>
             <SlideIn delay={0.2}>
               <h1 className="heading-primary">
-                Building polished digital products with
-                <span className="text-gradient"> calm, modern interfaces.</span>
+                Software that works well
+                <span className="text-gradient"> and feels effortless to use.</span>
               </h1>
             </SlideIn>
 
             <FadeIn delay={0.45} duration={0.8}>
               <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg md:text-xl">
-                I&apos;m Arthur Dutra, a software developer focused on full-stack web experiences
-                that feel fast, clear, and thoughtfully built.
+                I&apos;m Arthur Dutra, a software developer building clear, reliable web products
+                with React and Next.js.
               </p>
             </FadeIn>
 
-            <div className="mb-10 mt-8 space-y-4 text-base text-slate-400 sm:text-lg md:text-xl">
+            <div className="mb-10 mt-8 space-y-4 text-base leading-7 text-slate-400 sm:text-lg">
               <FadeIn delay={0.6} duration={1}>
                 <p>
-                  My background in software engineering at PUCRS gave me a strong technical
-                  foundation, and my work since then has been about turning that into practical,
-                  user-facing software.
-                </p>
-              </FadeIn>
-
-              <FadeIn delay={0.7} duration={1}>
-                <p>
-                  My professional journey includes valuable internships at{' '}
+                  With a software engineering background from PUCRS and experience at{' '}
                   <a
                     href="https://www.dell.com"
                     target="_blank"
@@ -59,16 +50,8 @@ const Home = () => {
                     className="font-semibold text-slate-200 transition-colors hover:text-sky-300"
                   >
                     Panvel
-                  </a>{' '}
-                  where I built real products with <strong>Python</strong>, <strong>C#</strong>,{' '}
-                  <strong>Apex</strong>, and <strong>JavaScript</strong>.
-                </p>
-              </FadeIn>
-
-              <FadeIn delay={0.8} duration={1}>
-                <p>
-                  Today I&apos;m focused on React and Next.js, creating web products with better
-                  structure, cleaner visual systems, and stronger user experience details.
+                  </a>
+                  , I bring practical engineering experience to user-facing products.
                 </p>
               </FadeIn>
             </div>
@@ -94,7 +77,7 @@ const Home = () => {
                   </p>
                 </div>
                 <div className="glass-panel p-4">
-                  <p className="text-2xl font-semibold text-white">5</p>
+                  <p className="text-2xl font-semibold text-white">{projects.length}</p>
                   <p className="mt-1 text-sm uppercase tracking-[0.2em] text-slate-400">
                     Live web projects
                   </p>
@@ -115,6 +98,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition hover:border-sky-300/30 hover:bg-white/10 hover:text-white"
+                  aria-label="GitHub profile"
                 >
                   <FiGithub className="size-6 sm:size-7" />
                 </a>
@@ -125,6 +109,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition hover:border-sky-300/30 hover:bg-white/10 hover:text-white"
+                  aria-label="LinkedIn profile"
                 >
                   <FiLinkedin className="size-6 sm:size-7" />
                 </a>
@@ -172,9 +157,7 @@ const Home = () => {
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                   <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Stack</p>
-                  <p className="mt-2 text-sm font-medium text-slate-200">
-                    React, Next.js, APIs
-                  </p>
+                  <p className="mt-2 text-sm font-medium text-slate-200">React, Next.js, APIs</p>
                 </div>
               </div>
             </div>

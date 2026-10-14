@@ -40,16 +40,6 @@ export const projects = [
     image: '/images/projects/mealplanner.png',
   },
   {
-    id: 5,
-    title: 'Wedge',
-    description: 'A modern all-in-one restaurant platform for all your management needs.',
-    technologies: ['React', 'Next.js', 'Tailwind CSS'],
-    github: '',
-    liveUrl: 'https://wedge.notdutra.dev/',
-    category: 'Web',
-    image: '/images/projects/wedge.png',
-  },
-  {
     id: 6,
     title: 'Finance App',
     description: 'A finance app to track your expenses, transactions and manage your budget.',

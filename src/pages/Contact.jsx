@@ -164,7 +164,7 @@ const Contact = () => {
             </div>
             <div className="mt-8 space-y-4">
               <a
-                href="mailto:arthursdutra@gmail.com"
+                href="mailto:notdutra@gmail.com"
                 className="flex items-center gap-4 rounded-[24px] border border-white/10 bg-white/5 p-4 text-slate-200 transition hover:border-sky-300/24 hover:bg-white/10"
               >
                 <span className="flex h-12 w-12 items-center justify-center rounded-full border border-sky-300/18 bg-sky-300/10 text-sky-200">
@@ -175,7 +175,7 @@ const Contact = () => {
                     Email
                   </span>
                   <span className="block text-sm font-medium sm:text-base">
-                    arthursdutra@gmail.com
+                    notdutra@gmail.com
                   </span>
                 </span>
               </a>

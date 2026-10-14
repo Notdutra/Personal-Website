@@ -40,23 +40,11 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://notdutra.dev',
     siteName: 'Arthur Dutra Portfolio',
-    images: [
-      {
-        url: 'https://notdutra.dev/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Arthur Dutra | Software Developer',
-      },
-    ],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Arthur Dutra | Software Developer',
     description: 'Software Developer & Tech Enthusiast building modern web applications',
-    images: ['https://notdutra.dev/og-image.jpg'],
-  },
-  verification: {
-    google: 'your-google-site-verification-code', // Add your actual verification code
   },
 };
 
@@ -64,13 +52,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="min-h-screen text-white">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-        >
-          <div className="absolute left-[-10%] top-[-8%] h-[28rem] w-[28rem] rounded-full bg-sky-400/12 blur-3xl" />
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+          <div className="bg-sky-400/12 absolute left-[-10%] top-[-8%] h-[28rem] w-[28rem] rounded-full blur-3xl" />
           <div className="absolute right-[-6%] top-[18%] h-[22rem] w-[22rem] rounded-full bg-amber-400/10 blur-3xl" />
-          <div className="absolute bottom-[-10%] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-cyan-500/8 blur-3xl" />
+          <div className="bg-cyan-500/8 absolute bottom-[-10%] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full blur-3xl" />
         </div>
         <Navbar />
         <div id="root">{children}</div>

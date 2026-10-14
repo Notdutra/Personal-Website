@@ -60,12 +60,14 @@ const Projects = () => {
           className="section-intro"
         >
           <span className="section-kicker">Projects</span>
-          <h1 className="section-title">Work that reflects how I think about product and execution.</h1>
+          <h1 className="section-title">
+            Work that reflects how I think about product and execution.
+          </h1>
           <p className="section-copy">
             A collection of shipped ideas, from focused tools to broader product concepts.
           </p>
         </motion.div>
-        {availableCategories.length > 1 && (
+        {availableCategories.length > 2 && (
           <div className="mb-12">
             <div className="glass-panel mx-auto flex w-fit flex-wrap justify-center gap-3 p-2">
               {availableCategories.map((category) => (
@@ -104,7 +106,7 @@ const Projects = () => {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="glass-panel overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-sky-300/24"
+                    className="glass-panel hover:border-sky-300/24 flex h-full flex-col overflow-hidden transition duration-300 hover:-translate-y-1"
                   >
                     {project.image && (
                       <a
@@ -125,10 +127,10 @@ const Projects = () => {
                         </div>
                       </a>
                     )}
-                    <div className="p-6">
+                    <div className="flex flex-1 flex-col p-6">
                       <div className="mb-4 flex items-center justify-between gap-4">
                         <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                        <span className="rounded-full border border-sky-300/16 bg-sky-300/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-sky-200">
+                        <span className="border-sky-300/16 bg-sky-300/8 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-sky-200">
                           {project.category}
                         </span>
                       </div>
@@ -143,14 +145,14 @@ const Projects = () => {
                           </span>
                         ))}
                       </div>
-                      <div className="flex gap-4">
+                      <div className="mt-auto flex gap-4 pt-2">
                         {project.github && (
                           <a
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition duration-200 hover:border-sky-300/24 hover:bg-white/10 hover:text-white"
-                            aria-label="GitHub Repository"
+                            className="hover:border-sky-300/24 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition duration-200 hover:bg-white/10 hover:text-white"
+                            aria-label={`${project.title} GitHub repository`}
                           >
                             <FiGithub size={20} />
                           </a>
@@ -160,8 +162,8 @@ const Projects = () => {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition duration-200 hover:border-sky-300/24 hover:bg-white/10 hover:text-white"
-                            aria-label="Live Demo"
+                            className="hover:border-sky-300/24 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition duration-200 hover:bg-white/10 hover:text-white"
+                            aria-label={`Open ${project.title} live site`}
                           >
                             <FiExternalLink size={20} />
                           </a>
